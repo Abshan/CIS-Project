@@ -25,7 +25,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
-
+// comment
 public class Home {
 
 	public JFrame frame;
