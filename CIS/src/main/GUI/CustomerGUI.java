@@ -1,11 +1,13 @@
 package main.GUI;
+
 //
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-
+import java.net.MalformedURLException;
+import java.rmi.*;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,19 +21,26 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import main.Servers.functions;
+import main.Servers.serverInterface;
+
 public class CustomerGUI {
 
 	public JFrame frame;
+	serverInterface serv;
 
 	/**
 	 * Launch the application.
 	 */
+//	private static serverInterface look;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					CustomerGUI window = new CustomerGUI();
 					window.frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,6 +104,19 @@ public class CustomerGUI {
 	}
 
 	private void initialize() {
+		String name = "rmi://localhost/test";
+		String question1 = "";
+		String question2 = "";
+		String question3 = "";
+		try {
+			serv = (serverInterface) Naming.lookup(name);
+			question1 = serv.question1();
+			question2 = serv.question2();
+			question3 = serv.question3();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		frame = new JFrame();
 		frame.setSize(1080, 1920);// (100, 100, 1080, 1920);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,7 +149,8 @@ public class CustomerGUI {
 		mainpanel.add(quepanel);
 		quepanel.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("    Rate the service based on the following criteria.");
+		JLabel lblNewLabel_1 = new JLabel();
+		lblNewLabel_1.setText(question1);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblNewLabel_1.setBounds(26, 40, 944, 33);
 		quepanel.add(lblNewLabel_1);
@@ -159,7 +182,8 @@ public class CustomerGUI {
 		quepanel2.setBounds(26, 914, 996, 200);
 		mainpanel.add(quepanel2);
 
-		JLabel lblRateTheAmbience = new JLabel("    Rate the ambience in the restaurant.");
+		JLabel lblRateTheAmbience = new JLabel();
+		lblRateTheAmbience.setText(question2);
 		lblRateTheAmbience.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblRateTheAmbience.setBounds(26, 40, 944, 33);
 		quepanel2.add(lblRateTheAmbience);
@@ -181,7 +205,8 @@ public class CustomerGUI {
 		quepanel3.setBounds(26, 1142, 996, 200);
 		mainpanel.add(quepanel3);
 
-		JLabel lblWouldYouRevisit = new JLabel("    Would you revisit our restaurant in future?");
+		JLabel lblWouldYouRevisit = new JLabel();
+		lblWouldYouRevisit.setText(question3);
 		lblWouldYouRevisit.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblWouldYouRevisit.setBounds(26, 40, 944, 33);
 		quepanel3.add(lblWouldYouRevisit);
