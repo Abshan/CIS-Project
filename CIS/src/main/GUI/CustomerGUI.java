@@ -8,6 +8,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.util.Vector;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,6 +25,8 @@ import javax.swing.border.TitledBorder;
 
 import main.Servers.functions;
 import main.Servers.serverInterface;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CustomerGUI {
 
@@ -55,70 +59,76 @@ public class CustomerGUI {
 		initialize();
 	}
 
-	private static JPanel addPanel(int number) {
-		JPanel panel_1 = new JPanel();
-
-		panel_1.setPreferredSize(new Dimension(980, 250));
-		panel_1.setBackground(Color.GRAY);
-		panel_1.setBorder(BorderFactory.createTitledBorder(""));
-		panel_1.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("  Image");
-		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		lblNewLabel.setBounds(26, 79, 115, 115);
-		panel_1.add(lblNewLabel);
-
-		JLabel lblFoodName = new JLabel("         Food Name");
-		lblFoodName.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		lblFoodName.setBounds(167, 120, 281, 33);
-		panel_1.add(lblFoodName);
-
-		JLabel lblTaste = new JLabel("Taste:");
-		lblTaste.setBounds(537, 52, 115, 33);
-		panel_1.add(lblTaste);
-
-		JLabel lblPlating = new JLabel("Plating:");
-		lblPlating.setBounds(537, 120, 115, 33);
-		panel_1.add(lblPlating);
-
-		JLabel lblPortion = new JLabel("Portion:");
-		lblPortion.setBounds(537, 189, 115, 33);
-		panel_1.add(lblPortion);
-
-		JSlider slider = new JSlider();
-		slider.setBounds(663, 59, 281, 26);
-		slider.setBackground(Color.GRAY);
-		panel_1.add(slider);
-
-		JSlider slider_1 = new JSlider();
-		slider_1.setBounds(663, 120, 281, 26);
-		slider_1.setBackground(Color.GRAY);
-		panel_1.add(slider_1);
-
-		JSlider slider_2 = new JSlider();
-		slider_2.setBounds(663, 196, 281, 26);
-		slider_2.setBackground(Color.GRAY);
-		panel_1.add(slider_2);
-
-		return panel_1;
-	}
+//	private static JPanel addPanel(int number) {
+//		JPanel panel_1 = new JPanel();
+//
+//		panel_1.setPreferredSize(new Dimension(980, 250));
+//		panel_1.setBackground(Color.GRAY);
+//		panel_1.setBorder(BorderFactory.createTitledBorder(""));
+//		panel_1.setLayout(null);
+//
+//		JLabel lblNewLabel = new JLabel("  Image");
+//		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+//		lblNewLabel.setBounds(26, 79, 115, 115);
+//		panel_1.add(lblNewLabel);
+//
+//		JLabel lblFoodName = new JLabel("         Food Name");
+//		lblFoodName.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+//		lblFoodName.setBounds(167, 120, 281, 33);
+//		panel_1.add(lblFoodName);
+//
+//		JLabel lblTaste = new JLabel("Taste:");
+//		lblTaste.setBounds(537, 52, 115, 33);
+//		panel_1.add(lblTaste);
+//
+//		JLabel lblPlating = new JLabel("Plating:");
+//		lblPlating.setBounds(537, 120, 115, 33);
+//		panel_1.add(lblPlating);
+//
+//		JLabel lblPortion = new JLabel("Portion:");
+//		lblPortion.setBounds(537, 189, 115, 33);
+//		panel_1.add(lblPortion);
+//
+//		JSlider slider = new JSlider();
+//		slider.setBounds(663, 59, 281, 26);
+//		slider.setBackground(Color.GRAY);
+//		panel_1.add(slider);
+//
+//		JSlider slider_1 = new JSlider();
+//		slider_1.setBounds(663, 120, 281, 26);
+//		slider_1.setBackground(Color.GRAY);
+//		panel_1.add(slider_1);
+//
+//		JSlider slider_2 = new JSlider();
+//		slider_2.setBounds(663, 196, 281, 26);
+//		slider_2.setBackground(Color.GRAY);
+//		panel_1.add(slider_2);
+//
+//		return panel_1;
+//	}
 
 	private void initialize() {
 		String name = "rmi://localhost/test";
 		String question1 = "";
 		String question2 = "";
 		String question3 = "";
+		String question4 = "";
+		String question5 = "";
 		try {
 			serv = (serverInterface) Naming.lookup(name);
-			question1 = serv.question1();
-			question2 = serv.question2();
-			question3 = serv.question3();
+
+			Vector<String> que = new Vector<String>(serv.questions());
+			question1 = que.get(0).toString();
+			question2 = que.get(1).toString();
+			question3 = que.get(2).toString();
+			question4 = que.get(3).toString();
+			question5 = que.get(4).toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		frame = new JFrame();
-		frame.setSize(1080, 1920);// (100, 100, 1080, 1920);
+		frame.setSize(1080, 1810);// (100, 100, 1080, 1920);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -126,34 +136,65 @@ public class CustomerGUI {
 		mainpanel.setBackground(Color.GRAY);
 		mainpanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5),
 				"Restaurant Reviewing Sytem", TitledBorder.CENTER, TitledBorder.TOP));
-		mainpanel.setBounds(0, 0, 1048, 1832);
+		mainpanel.setBounds(0, 0, 1048, 1722);
 		frame.getContentPane().add(mainpanel);
 		mainpanel.setLayout(null);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(26, 62, 996, 596);
-		scrollPane.setBorder(BorderFactory.createTitledBorder("Food Items"));
-		scrollPane.setBackground(Color.GRAY);
-		mainpanel.add(scrollPane);
-
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(BorderFactory.createTitledBorder("FOOD"));
 		panel.setBackground(Color.GRAY);
-		panel.getPreferredSize();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		scrollPane.setViewportView(panel);
+		panel.setBounds(26, 28, 996, 324);
+		mainpanel.add(panel);
+
+		JLabel lblRateFood = new JLabel();
+		lblRateFood.setText(question1);
+		lblRateFood.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblRateFood.setBounds(26, 40, 944, 33);
+		panel.add(lblRateFood);
+
+		JLabel lblTaste_1 = new JLabel("Taste:");
+		lblTaste_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblTaste_1.setBounds(231, 110, 149, 33);
+		panel.add(lblTaste_1);
+
+		JSlider slider_3 = new JSlider(1, 5, 3);
+		slider_3.setBackground(Color.GRAY);
+		slider_3.setBounds(406, 117, 316, 26);
+		panel.add(slider_3);
+
+		JLabel lblPlating = new JLabel("Plating:");
+		lblPlating.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblPlating.setBounds(231, 171, 149, 33);
+		panel.add(lblPlating);
+
+		JSlider slider_5 = new JSlider(1, 5, 3);
+		slider_5.setBackground(Color.GRAY);
+		slider_5.setBounds(406, 178, 316, 26);
+		panel.add(slider_5);
+
+		JLabel lblPortion = new JLabel("Portion:");
+		lblPortion.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblPortion.setBounds(231, 232, 149, 33);
+		panel.add(lblPortion);
+
+		JSlider slider_4 = new JSlider(1, 5, 3);
+		slider_4.setBackground(Color.GRAY);
+		slider_4.setBounds(406, 239, 316, 26);
+		panel.add(slider_4);
 
 		JPanel quepanel = new JPanel();
 		quepanel.setBackground(Color.GRAY);
-		quepanel.setBounds(26, 686, 996, 200);
-		quepanel.setBorder(BorderFactory.createTitledBorder("Question No 1"));
+		quepanel.setBounds(26, 380, 996, 253);
+		quepanel.setBorder(BorderFactory.createTitledBorder("Service & Server"));
 		mainpanel.add(quepanel);
 		quepanel.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel();
-		lblNewLabel_1.setText(question1);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		lblNewLabel_1.setBounds(26, 40, 944, 33);
-		quepanel.add(lblNewLabel_1);
+		JLabel lblRateService = new JLabel();
+		lblRateService.setText(question2);
+		lblRateService.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblRateService.setBounds(26, 40, 944, 33);
+		quepanel.add(lblRateService);
 
 		JLabel lblServeTime = new JLabel("Serve Time:");
 		lblServeTime.setFont(new Font("Tahoma", Font.PLAIN, 32));
@@ -162,51 +203,71 @@ public class CustomerGUI {
 
 		JLabel lblWaitingStaff = new JLabel("Waiting Staff:");
 		lblWaitingStaff.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		lblWaitingStaff.setBounds(186, 126, 194, 57);
+		lblWaitingStaff.setBounds(186, 151, 194, 57);
 		quepanel.add(lblWaitingStaff);
 
-		JSlider slider = new JSlider();
+		JSlider slider = new JSlider(1, 5, 3);
 		slider.setBackground(Color.GRAY);
 		slider.setBounds(406, 97, 316, 26);
 		quepanel.add(slider);
 
-		JSlider slider_1 = new JSlider();
+		JSlider slider_1 = new JSlider(1, 5, 3);
 		slider_1.setBackground(Color.GRAY);
-		slider_1.setBounds(406, 146, 316, 26);
+		slider_1.setBounds(406, 171, 316, 26);
 		quepanel.add(slider_1);
 
 		JPanel quepanel2 = new JPanel();
 		quepanel2.setBackground(Color.GRAY);
 		quepanel2.setLayout(null);
-		quepanel2.setBorder(BorderFactory.createTitledBorder("Question No 2"));
-		quepanel2.setBounds(26, 914, 996, 200);
+		quepanel2.setBorder(BorderFactory.createTitledBorder("Ambiance"));
+		quepanel2.setBounds(26, 661, 996, 323);
 		mainpanel.add(quepanel2);
 
 		JLabel lblRateTheAmbience = new JLabel();
-		lblRateTheAmbience.setText(question2);
+		lblRateTheAmbience.setText(question3);
 		lblRateTheAmbience.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblRateTheAmbience.setBounds(26, 40, 944, 33);
 		quepanel2.add(lblRateTheAmbience);
 
-		JLabel lblAmbiance = new JLabel("Ambiance:");
+		JLabel lblAmbiance = new JLabel("Cleanliness:");
 		lblAmbiance.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		lblAmbiance.setBounds(231, 110, 149, 33);
+		lblAmbiance.setBounds(214, 110, 166, 33);
 		quepanel2.add(lblAmbiance);
 
-		JSlider slider_2 = new JSlider();
+		JSlider slider_2 = new JSlider(1, 5, 3);
 		slider_2.setBackground(Color.GRAY);
 		slider_2.setBounds(406, 117, 316, 26);
 		quepanel2.add(slider_2);
 
+		JLabel lblParking = new JLabel("Lighting:");
+		lblParking.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblParking.setBounds(256, 165, 124, 39);
+		quepanel2.add(lblParking);
+
+		JSlider slider_6 = new JSlider(1, 5, 3);
+		slider_6.setBackground(Color.GRAY);
+		slider_6.setBounds(406, 178, 316, 26);
+		quepanel2.add(slider_6);
+
+		JLabel lblComfort = new JLabel("Comfort:");
+		lblComfort.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblComfort.setBounds(256, 232, 124, 33);
+		quepanel2.add(lblComfort);
+
+		JSlider slider_7 = new JSlider(1, 5, 3);
+		slider_7.setBackground(Color.GRAY);
+		slider_7.setBounds(406, 239, 316, 26);
+		quepanel2.add(slider_7);
+
 		JPanel quepanel3 = new JPanel();
 		quepanel3.setBackground(Color.GRAY);
 		quepanel3.setLayout(null);
-		quepanel3.setBorder(BorderFactory.createTitledBorder("Question No 3"));
-		quepanel3.setBounds(26, 1142, 996, 200);
+		quepanel3.setBorder(BorderFactory.createTitledBorder("Opinion"));
+		quepanel3.setBounds(26, 1012, 996, 218);
 		mainpanel.add(quepanel3);
 
 		JLabel lblWouldYouRevisit = new JLabel();
-		lblWouldYouRevisit.setText(question3);
+		lblWouldYouRevisit.setText(question4);
 		lblWouldYouRevisit.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblWouldYouRevisit.setBounds(26, 40, 944, 33);
 		quepanel3.add(lblWouldYouRevisit);
@@ -232,11 +293,12 @@ public class CustomerGUI {
 		JPanel quepanel4 = new JPanel();
 		quepanel4.setBackground(Color.GRAY);
 		quepanel4.setLayout(null);
-		quepanel4.setBorder(BorderFactory.createTitledBorder("Question No 4"));
-		quepanel4.setBounds(26, 1370, 996, 352);
+		quepanel4.setBorder(BorderFactory.createTitledBorder("Dining Comments"));
+		quepanel4.setBounds(26, 1258, 996, 352);
 		mainpanel.add(quepanel4);
 
-		JLabel lblOtherComments = new JLabel("    Other comments.");
+		JLabel lblOtherComments = new JLabel();
+		lblOtherComments.setText(question5);
 		lblOtherComments.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblOtherComments.setBounds(26, 40, 944, 33);
 		quepanel4.add(lblOtherComments);
@@ -246,17 +308,24 @@ public class CustomerGUI {
 		quepanel4.add(textArea);
 
 		JButton btnConfirm = new JButton("Confirm");
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					serv.userInput(1, 2, 3, 4, 5, 6, 7, 8, 9, "10", "11");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		btnConfirm.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		btnConfirm.setBounds(796, 1741, 226, 63);
+		btnConfirm.setBounds(796, 1638, 226, 63);
 		mainpanel.add(btnConfirm);
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		btnCancel.setBounds(544, 1741, 226, 63);
+		btnCancel.setBounds(544, 1638, 226, 63);
 		mainpanel.add(btnCancel);
 
-		for (int i = 0; i < 5; i++) {
-			panel.add(addPanel(i + 1));
-		}
 	}
 }
