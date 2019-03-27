@@ -73,42 +73,44 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 		}
 
 	}
-	
-	public void userInput(int orderno, int taste, int plating, int portion, int servetime, int waitingstaff, int cleanliness, int lighting,
-			int comfort, String opinion, String message) throws RemoteException{
-		
+
+	public void userInput(int orderno, int taste, int plating, int portion, int servetime, int waitingstaff,
+			int cleanliness, int lighting, int comfort, String opinion, String message, String date)
+			throws RemoteException {
+
 		JSONObject inputs = new JSONObject();
 		JSONArray food = new JSONArray();
 		JSONArray service = new JSONArray();
 		JSONArray ambiance = new JSONArray();
-		
-		
-		
+
 		try {
-			inputs.put("OrderNo", orderno);
 			
+			inputs.put("OrderNo", orderno);
+
 			food.put(new JSONObject().put("Taste", taste).put("Plating", plating).put("Portion", portion));
 			service.put(new JSONObject().put("Serve Time", servetime).put("", waitingstaff));
-			ambiance.put(new JSONObject().put("Cleanliness", cleanliness).put("Lighting", lighting).put("Comfort", comfort));
-			
+			ambiance.put(
+					new JSONObject().put("Cleanliness", cleanliness).put("Lighting", lighting).put("Comfort", comfort));
+
 			inputs.put("Food", food);
 			inputs.put("Service", service);
 			inputs.put("Ambiance", ambiance);
-			
+
 			inputs.put("Opinion", opinion);
 			inputs.put("Message", message);
-			
+			inputs.put("Date", date);
+
 			FileWriter file = new FileWriter("C:\\GitHub\\CIS-Project\\Test.json", true);
 			file.write(inputs.toString() + '\n');
 			file.flush();
-			
+
 			JOptionPane.showMessageDialog(null, "Succesful");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
-		
+
 	}
 
 }

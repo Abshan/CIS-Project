@@ -8,6 +8,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -308,16 +311,6 @@ public class CustomerGUI {
 		quepanel4.add(textArea);
 
 		JButton btnConfirm = new JButton("Confirm");
-		btnConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					serv.userInput(1, 2, 3, 4, 5, 6, 7, 8, 9, "10", "11");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
 		btnConfirm.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		btnConfirm.setBounds(796, 1638, 226, 63);
 		mainpanel.add(btnConfirm);
@@ -326,6 +319,23 @@ public class CustomerGUI {
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		btnCancel.setBounds(544, 1638, 226, 63);
 		mainpanel.add(btnCancel);
+		
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Date now = new Date();
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				String date = df.format(now);
+				
+				try {
+					serv.userInput(1, 2, 3, 4, 5, 6, 7, 8, 9, "10", "11", date);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
 
 	}
 }
