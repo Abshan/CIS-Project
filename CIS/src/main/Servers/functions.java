@@ -1,24 +1,13 @@
 package main.Servers;
 
-import java.awt.List;
-import java.beans.Statement;
-import java.io.FileWriter;
-import java.nio.file.Files;
-import java.rmi.*;
-import java.rmi.server.*;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.simple.*;
-
-import netscape.javascript.JSObject;
 
 public class functions extends UnicastRemoteObject implements serverInterface {
 
@@ -42,7 +31,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	public boolean loginConfirmation(String username, String password) throws RemoteException {
 
-		if (username == "Admin" && password == "password") {
+		if (username == "admin" && password == "admin") {
 			return true;
 		} else {
 			return false;
@@ -51,16 +40,19 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	public boolean invoiceValidation(int number) throws RemoteException {
 
-		String query = "";
+		Connection con = connect.getConnection();
+		String que = "select review->>\"$.OrderNo\" from reviewtab where review->>\"$.OrderNo\" = " + number + " ";
 		int result = 0;
 
 		try {
-			Connection con = connect.getConnection();
 			Statement st = (Statement) con.createStatement();
-			ResultSet rs = ((java.sql.Statement) st).executeQuery(query);
+			ResultSet rs = ((java.sql.Statement) st).executeQuery(que);
 			if (rs.next()) {
-				result = rs.getInt("invoiceNo");
+				result = rs.getInt("OrderNo");
 			}
+			st.close();
+			rs.close();
+			con.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,39 +70,107 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 			int cleanliness, int lighting, int comfort, String opinion, String message, String date)
 			throws RemoteException {
 
-		JSONObject inputs = new JSONObject();
-		JSONArray food = new JSONArray();
-		JSONArray service = new JSONArray();
-		JSONArray ambiance = new JSONArray();
+		Connection con = connect.getConnection();
+
+		String que = "INSERT INTO reviewTab(message, opinion, date, review)VALUES('" + message + "', '" + opinion
+				+ "', '" + date + "', '{\"OrderNo\": " + orderno + ", \"Food\": {\"Taste\": " + taste
+				+ ", \"Plating\": " + plating + ", \"Portion\": " + portion + "}, \"Service\": {\"ServeTime\": "
+				+ servetime + ", \"WaitingStaff\": " + waitingstaff + "}, \"Ambiance\": {\"Cleanliness\": "
+				+ cleanliness + "," + " \"Lighting\": " + lighting + ", \"Comfort\": " + comfort + "}}')";
 
 		try {
-			
-			inputs.put("OrderNo", orderno);
-
-			food.put(new JSONObject().put("Taste", taste).put("Plating", plating).put("Portion", portion));
-			service.put(new JSONObject().put("Serve Time", servetime).put("", waitingstaff));
-			ambiance.put(
-					new JSONObject().put("Cleanliness", cleanliness).put("Lighting", lighting).put("Comfort", comfort));
-
-			inputs.put("Food", food);
-			inputs.put("Service", service);
-			inputs.put("Ambiance", ambiance);
-
-			inputs.put("Opinion", opinion);
-			inputs.put("Message", message);
-			inputs.put("Date", date);
-
-			FileWriter file = new FileWriter("C:\\GitHub\\CIS-Project\\Test.json", true);
-			file.write(inputs.toString() + '\n');
-			file.flush();
-
-			JOptionPane.showMessageDialog(null, "Succesful");
+			Statement st;
+			st = (Statement) con.createStatement();
+			int exec = ((java.sql.Statement) st).executeUpdate(que);
+			JOptionPane.showMessageDialog(null, "Succesfully Added!");
+			st.close();
+			con.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Something is wrong!");
 
 		}
 
+	}
+
+	public int getValueOf(String name, String attribute) throws RemoteException {
+
+		int sum = 0;
+		Connection con = connect.getConnection();
+		String que = "select SUM(review->>\"$." + name + "." + attribute + "\") Sum from reviewtab;";
+
+		try {
+			Statement st;
+			st = (Statement) con.createStatement();
+			ResultSet rs = st.executeQuery(que);
+
+			if (rs.next()) {
+				sum = rs.getInt("Sum");
+			}
+
+			st.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sum;
+
+	}
+
+	public int getAvgValueOf(String name, String attribute) throws RemoteException {
+
+		int sum = 0;
+		int count = 0;
+		Connection con = connect.getConnection();
+		String que = "select COUNT(review->>\"$." + name + "." + attribute + "\") Count, SUM(review->>\"$." + name + "."
+				+ attribute + "\") Sum from reviewtab;";
+
+		try {
+			Statement st;
+			st = (Statement) con.createStatement();
+			ResultSet rs = st.executeQuery(que);
+
+			if (rs.next()) {
+				sum = rs.getInt("Sum");
+				count = rs.getInt("Count");
+			}
+
+			st.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sum / count;
+
+	}
+
+	public Vector<String> getComments(int number) throws RemoteException {
+
+		Vector<String> comments = new Vector<String>();
+		Connection con = connect.getConnection();
+		String comment = null;
+		String que = "select message from reviewtab LIMIT " + number + " ";
+
+		try {
+			Statement st;
+			st = (Statement) con.createStatement();
+			ResultSet rs = st.executeQuery(que);
+			while (rs.next()) {
+				comment = rs.getString("message");
+				comments.add(comment);
+			}
+
+			st.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return comments;
 	}
 
 }

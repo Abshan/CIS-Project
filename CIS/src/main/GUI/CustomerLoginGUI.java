@@ -73,14 +73,17 @@ public class CustomerLoginGUI {
 		lblLogo.setBounds(200, 89, 116, 116);
 		panel.add(lblLogo);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 35));
-		textArea.setBounds(85, 280, 350, 50);
-		panel.add(textArea);
+		JTextArea txtpassword = new JTextArea();
+		txtpassword.setFont(new Font("Monospaced", Font.PLAIN, 35));
+		txtpassword.setBounds(85, 280, 350, 50);
+		panel.add(txtpassword);
 
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+//				int number = txtpassword.tos
+				
 				CustomerGUI window = new CustomerGUI();
 				window.frame.setVisible(true);
 				frame.dispose();
