@@ -41,15 +41,21 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	public boolean invoiceValidation(int number) throws RemoteException {
 
 		Connection con = connect.getConnection();
-		String que = "select review->>\"$.OrderNo\" from reviewtab where review->>\"$.OrderNo\" = " + number + " ";
+		String que = "select orderNo from ordertab where orderNo = " + number + " ";
 		int result = 0;
+		boolean stat = false;
 
 		try {
 			Statement st = (Statement) con.createStatement();
 			ResultSet rs = ((java.sql.Statement) st).executeQuery(que);
 			if (rs.next()) {
-				result = rs.getInt("OrderNo");
+				result = rs.getInt("orderNo");
 			}
+
+			if (result == number) {
+				stat = true;
+			}
+
 			st.close();
 			rs.close();
 			con.close();
@@ -57,12 +63,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		if (result == number) {
-			return true;
-		} else {
-			return false;
-		}
+		return stat;
 
 	}
 
@@ -82,7 +83,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 			Statement st;
 			st = (Statement) con.createStatement();
 			int exec = ((java.sql.Statement) st).executeUpdate(que);
-			JOptionPane.showMessageDialog(null, "Succesfully Added!");
+//			JOptionPane.showMessageDialog(null, "Thank You For Your Time, Have a Good Day!");
 			st.close();
 			con.close();
 
@@ -122,10 +123,8 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	public int getAvgValueOf(String name, String attribute) throws RemoteException {
 
 		int sum = 0;
-		int count = 0;
 		Connection con = connect.getConnection();
-		String que = "select COUNT(review->>\"$." + name + "." + attribute + "\") Count, SUM(review->>\"$." + name + "."
-				+ attribute + "\") Sum from reviewtab;";
+		String que = "select AVG(review->>\"$." + name + "." + attribute + "\") Avg from reviewtab;";
 
 		try {
 			Statement st;
@@ -133,8 +132,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 			ResultSet rs = st.executeQuery(que);
 
 			if (rs.next()) {
-				sum = rs.getInt("Sum");
-				count = rs.getInt("Count");
+				sum = rs.getInt("Avg");
 			}
 
 			st.close();
@@ -143,7 +141,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sum / count;
+		return sum;
 
 	}
 

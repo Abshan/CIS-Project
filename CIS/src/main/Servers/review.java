@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class review {
 
-	private int orderNo;
+	public static int orderNo;
 	private int taste;
 	private int plating;
 	private int portion;
@@ -19,11 +19,10 @@ public class review {
 	private String Message;
 	private String Date;
 
-	public review(int orderNo, int taste, int plating, int portion, int serveTime, int waitingStaff, int cleanliness,
-			int lighting, int comfort, String opinion, String message, String date) {
+	public review(int taste, int plating, int portion, int serveTime, int waitingStaff, int cleanliness, int lighting,
+			int comfort, String opinion, String message, String date) {
 
 		super();
-		this.orderNo = orderNo;
 		this.taste = taste;
 		this.plating = plating;
 		this.portion = portion;
@@ -35,14 +34,6 @@ public class review {
 		this.opinion = opinion;
 		Message = message;
 		Date = date;
-	}
-
-	public int getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
 	}
 
 	public int getTaste() {
@@ -125,7 +116,7 @@ public class review {
 		Message = message;
 	}
 
-	public String getTodaysDate() {
+	public static String getTodaysDate() {
 		Date now = new Date();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String Day = df.format(now);

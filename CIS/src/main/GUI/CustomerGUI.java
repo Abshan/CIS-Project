@@ -1,40 +1,35 @@
 package main.GUI;
 
-//
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.net.MalformedURLException;
-import java.rmi.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.rmi.Naming;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import main.Servers.functions;
+import main.Servers.review;
 import main.Servers.serverInterface;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class CustomerGUI {
 
 	public JFrame frame;
 	serverInterface serv;
+	public String op = null;
 
 	/**
 	 * Launch the application.
@@ -111,6 +106,7 @@ public class CustomerGUI {
 //	}
 
 	private void initialize() {
+
 		String name = "rmi://localhost/test";
 		String question1 = "";
 		String question2 = "";
@@ -134,6 +130,7 @@ public class CustomerGUI {
 		frame.setSize(1080, 1810);// (100, 100, 1080, 1920);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 
 		JPanel mainpanel = new JPanel();
 		mainpanel.setBackground(Color.GRAY);
@@ -161,30 +158,30 @@ public class CustomerGUI {
 		lblTaste_1.setBounds(231, 110, 149, 33);
 		panel.add(lblTaste_1);
 
-		JSlider slider_3 = new JSlider(1, 5, 3);
-		slider_3.setBackground(Color.GRAY);
-		slider_3.setBounds(406, 117, 316, 26);
-		panel.add(slider_3);
+		JSlider taste_sli = new JSlider(1, 5, 3);
+		taste_sli.setBackground(Color.GRAY);
+		taste_sli.setBounds(406, 117, 316, 26);
+		panel.add(taste_sli);
 
 		JLabel lblPlating = new JLabel("Plating:");
 		lblPlating.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblPlating.setBounds(231, 171, 149, 33);
 		panel.add(lblPlating);
 
-		JSlider slider_5 = new JSlider(1, 5, 3);
-		slider_5.setBackground(Color.GRAY);
-		slider_5.setBounds(406, 178, 316, 26);
-		panel.add(slider_5);
+		JSlider plating_sli = new JSlider(1, 5, 3);
+		plating_sli.setBackground(Color.GRAY);
+		plating_sli.setBounds(406, 178, 316, 26);
+		panel.add(plating_sli);
 
 		JLabel lblPortion = new JLabel("Portion:");
 		lblPortion.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblPortion.setBounds(231, 232, 149, 33);
 		panel.add(lblPortion);
 
-		JSlider slider_4 = new JSlider(1, 5, 3);
-		slider_4.setBackground(Color.GRAY);
-		slider_4.setBounds(406, 239, 316, 26);
-		panel.add(slider_4);
+		JSlider portion_sli = new JSlider(1, 5, 3);
+		portion_sli.setBackground(Color.GRAY);
+		portion_sli.setBounds(406, 239, 316, 26);
+		panel.add(portion_sli);
 
 		JPanel quepanel = new JPanel();
 		quepanel.setBackground(Color.GRAY);
@@ -209,15 +206,15 @@ public class CustomerGUI {
 		lblWaitingStaff.setBounds(186, 151, 194, 57);
 		quepanel.add(lblWaitingStaff);
 
-		JSlider slider = new JSlider(1, 5, 3);
-		slider.setBackground(Color.GRAY);
-		slider.setBounds(406, 97, 316, 26);
-		quepanel.add(slider);
+		JSlider servetime_sli = new JSlider(1, 5, 3);
+		servetime_sli.setBackground(Color.GRAY);
+		servetime_sli.setBounds(406, 97, 316, 26);
+		quepanel.add(servetime_sli);
 
-		JSlider slider_1 = new JSlider(1, 5, 3);
-		slider_1.setBackground(Color.GRAY);
-		slider_1.setBounds(406, 171, 316, 26);
-		quepanel.add(slider_1);
+		JSlider waitingstaff_sli = new JSlider(1, 5, 3);
+		waitingstaff_sli.setBackground(Color.GRAY);
+		waitingstaff_sli.setBounds(406, 171, 316, 26);
+		quepanel.add(waitingstaff_sli);
 
 		JPanel quepanel2 = new JPanel();
 		quepanel2.setBackground(Color.GRAY);
@@ -237,30 +234,30 @@ public class CustomerGUI {
 		lblAmbiance.setBounds(214, 110, 166, 33);
 		quepanel2.add(lblAmbiance);
 
-		JSlider slider_2 = new JSlider(1, 5, 3);
-		slider_2.setBackground(Color.GRAY);
-		slider_2.setBounds(406, 117, 316, 26);
-		quepanel2.add(slider_2);
+		JSlider cleanliness_sli = new JSlider(1, 5, 3);
+		cleanliness_sli.setBackground(Color.GRAY);
+		cleanliness_sli.setBounds(406, 117, 316, 26);
+		quepanel2.add(cleanliness_sli);
 
 		JLabel lblParking = new JLabel("Lighting:");
 		lblParking.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblParking.setBounds(256, 165, 124, 39);
 		quepanel2.add(lblParking);
 
-		JSlider slider_6 = new JSlider(1, 5, 3);
-		slider_6.setBackground(Color.GRAY);
-		slider_6.setBounds(406, 178, 316, 26);
-		quepanel2.add(slider_6);
+		JSlider lighting_sli = new JSlider(1, 5, 3);
+		lighting_sli.setBackground(Color.GRAY);
+		lighting_sli.setBounds(406, 178, 316, 26);
+		quepanel2.add(lighting_sli);
 
 		JLabel lblComfort = new JLabel("Comfort:");
 		lblComfort.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblComfort.setBounds(256, 232, 124, 33);
 		quepanel2.add(lblComfort);
 
-		JSlider slider_7 = new JSlider(1, 5, 3);
-		slider_7.setBackground(Color.GRAY);
-		slider_7.setBounds(406, 239, 316, 26);
-		quepanel2.add(slider_7);
+		JSlider comfort_sli = new JSlider(1, 5, 3);
+		comfort_sli.setBackground(Color.GRAY);
+		comfort_sli.setBounds(406, 239, 316, 26);
+		quepanel2.add(comfort_sli);
 
 		JPanel quepanel3 = new JPanel();
 		quepanel3.setBackground(Color.GRAY);
@@ -275,23 +272,23 @@ public class CustomerGUI {
 		lblWouldYouRevisit.setBounds(26, 40, 944, 33);
 		quepanel3.add(lblWouldYouRevisit);
 
-		JCheckBox chckbxNo = new JCheckBox("Yes");
-		chckbxNo.setBackground(Color.GRAY);
-		chckbxNo.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		chckbxNo.setBounds(176, 106, 221, 41);
-		quepanel3.add(chckbxNo);
+		JCheckBox yes_chckbx = new JCheckBox("Yes");
+		yes_chckbx.setBackground(Color.GRAY);
+		yes_chckbx.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		yes_chckbx.setBounds(176, 106, 221, 41);
+		quepanel3.add(yes_chckbx);
 
-		JCheckBox chckbxYes = new JCheckBox("No");
-		chckbxYes.setBackground(Color.GRAY);
-		chckbxYes.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		chckbxYes.setBounds(415, 106, 221, 41);
-		quepanel3.add(chckbxYes);
+		JCheckBox no_chckbx = new JCheckBox("No");
+		no_chckbx.setBackground(Color.GRAY);
+		no_chckbx.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		no_chckbx.setBounds(415, 106, 221, 41);
+		quepanel3.add(no_chckbx);
 
-		JCheckBox chckbxMaybe = new JCheckBox("Maybe");
-		chckbxMaybe.setBackground(Color.GRAY);
-		chckbxMaybe.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		chckbxMaybe.setBounds(654, 106, 221, 41);
-		quepanel3.add(chckbxMaybe);
+		JCheckBox maybe_chckbx = new JCheckBox("Maybe");
+		maybe_chckbx.setBackground(Color.GRAY);
+		maybe_chckbx.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		maybe_chckbx.setBounds(654, 106, 221, 41);
+		quepanel3.add(maybe_chckbx);
 
 		JPanel quepanel4 = new JPanel();
 		quepanel4.setBackground(Color.GRAY);
@@ -306,9 +303,9 @@ public class CustomerGUI {
 		lblOtherComments.setBounds(26, 40, 944, 33);
 		quepanel4.add(lblOtherComments);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(59, 88, 878, 236);
-		quepanel4.add(textArea);
+		JTextArea message_txt = new JTextArea();
+		message_txt.setBounds(59, 88, 878, 236);
+		quepanel4.add(message_txt);
 
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.setFont(new Font("Tahoma", Font.PLAIN, 34));
@@ -319,23 +316,86 @@ public class CustomerGUI {
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		btnCancel.setBounds(544, 1638, 226, 63);
 		mainpanel.add(btnCancel);
-		
+
+		yes_chckbx.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (yes_chckbx.isSelected()) {
+					no_chckbx.setSelected(false);
+					maybe_chckbx.setSelected(false);
+					op = "Yes";
+				}
+			}
+		});
+
+		no_chckbx.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (no_chckbx.isSelected()) {
+					yes_chckbx.setSelected(false);
+					maybe_chckbx.setSelected(false);
+					op = "No";
+				}
+			}
+		});
+
+		maybe_chckbx.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (maybe_chckbx.isSelected()) {
+					no_chckbx.setSelected(false);
+					yes_chckbx.setSelected(false);
+					op = "Maybe";
+				}
+			}
+		});
+
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				Date now = new Date();
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				String date = df.format(now);
-				
+
+				int taste = taste_sli.getValue();
+				int plating = plating_sli.getValue();
+				int portion = portion_sli.getValue();
+				int serveTime = servetime_sli.getValue();
+				int waitingStaff = waitingstaff_sli.getValue();
+				int cleanliness = cleanliness_sli.getValue();
+				int lighting = lighting_sli.getValue();
+				int comfort = comfort_sli.getValue();
+				String message = message_txt.getText();
+
 				try {
-					serv.userInput(1, 2, 3, 4, 5, 6, 7, 8, 9, "10", "11", date);
+					serv.userInput(review.orderNo, taste, plating, portion, serveTime, waitingStaff, cleanliness,
+							lighting, comfort, op, message, date);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
+				taste_sli.setValue(3);
+				plating_sli.setValue(3);
+				portion_sli.setValue(3);
+				servetime_sli.setValue(3);
+				waitingstaff_sli.setValue(3);
+				cleanliness_sli.setValue(3);
+				lighting_sli.setValue(3);
+				comfort_sli.setValue(3);
+				message_txt.setText("");
+				yes_chckbx.setSelected(false);
+				no_chckbx.setSelected(false);
+				maybe_chckbx.setSelected(false);
+				review.orderNo = 0;
+				
+				CustomerLoginGUI window = new CustomerLoginGUI();
+				window.frame.setVisible(true);
+				frame.dispose();
+				
+				JOptionPane.showMessageDialog(null, "Thank You For Your Time, Have a Good Day!");
+				
+				
+
 			}
 		});
-		
 
 	}
+
 }
