@@ -171,4 +171,30 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 		return comments;
 	}
 
+	public int getValueOfFood(String attribute, String foodname) throws RemoteException {
+		Connection con = connect.getConnection();
+		int no = 0;
+		String que = "select AVG(review->>\"$.Food." + attribute
+				+ "\") Avg from reviewtab where review->>\"$.OrderNo\" in (select orderNo from orderlist where foodItem = '"
+				+ foodname + "')";
+
+		try {
+			Statement st;
+			st = (Statement) con.createStatement();
+			ResultSet rs = st.executeQuery(que);
+
+			if (rs.next()) {
+				no = rs.getInt("Avg");
+			}
+
+			st.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return no;
+
+	}
+
 }

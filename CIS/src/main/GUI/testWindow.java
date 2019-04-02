@@ -64,11 +64,13 @@ public class testWindow {
 				String name = "rmi://localhost/test";
 				int tot;
 				int avg;
+				int favg;
 				try {
 					serv = (serverInterface) Naming.lookup(name);
 					tot = serv.getValueOf("Ambiance", "Comfort");
 					avg = serv.getAvgValueOf("Ambiance", "Comfort");
-					JOptionPane.showMessageDialog(null, "Total is : " + tot +"\n Avg is: " + avg);
+					favg = serv.getValueOfFood("Portion", "Burger");
+					JOptionPane.showMessageDialog(null, "Total is : " + tot +"\n Avg is: " + avg+"\n Food Avg is: " + favg);
 
 				} catch (Exception e) {
 					e.printStackTrace();
