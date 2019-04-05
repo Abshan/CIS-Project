@@ -1,25 +1,28 @@
 package main.GUI;
+
+import java.awt.Color;
 //
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.rmi.Naming;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
+import main.Servers.serverInterface;
+import javax.swing.ImageIcon;
 
 public class Login {
 
 	private JFrame frame;
-	private JTextField txtPassword;
-	private JTextField txtUsername;
+	serverInterface serv;
 
 	/**
 	 * Launch the application.
@@ -48,47 +51,78 @@ public class Login {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		String name = "rmi://localhost/test";
+
 		frame = new JFrame();
-//		frame.setSize(623, 422);
-		frame.setBounds(100, 100, 1280, 720);
+		frame.setResizable(false);
+		frame.setBounds(0, 0, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1280, 720);
+		panel.setBounds(0, 0, 1248, 658);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		txtPassword = new JTextField(10);
-		txtPassword.setForeground(Color.GRAY);
-		txtPassword.setFont(new Font("Lucida Sans", Font.PLAIN, 10));
-		txtPassword.setText("Password");
-		txtPassword.setBounds(534, 299, 211, 19);
-		panel.add(txtPassword);
+		JLabel lblLogo = new JLabel("     Logo");
+		lblLogo.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblLogo.setBounds(565, 106, 150, 150);
+		panel.add(lblLogo);
 
-		txtUsername = new JTextField(10);
-		txtUsername.setForeground(Color.GRAY);
-		txtUsername.setFont(new Font("Lucida Sans", Font.PLAIN, 10));
-		txtUsername.setHorizontalAlignment(SwingConstants.LEFT);
-		txtUsername.setText("Username");
-		txtUsername.setBounds(534, 265, 211, 19);
+		JTextField txtUsername = new JTextField();
+		txtUsername.setBounds(520, 284, 236, 39);
 		panel.add(txtUsername);
+		txtUsername.setColumns(10);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(574, 164, 143, 61);
-		panel.add(panel_1);
+		JTextField txtPassword = new JTextField();
+		txtPassword.setBounds(520, 338, 236, 39);
+		panel.add(txtPassword);
+		txtPassword.setColumns(10);
 
-		JButton btnNewButton = new JButton("Login");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel lblInvalid = new JLabel("");
+		lblInvalid.setForeground(Color.GRAY);
+		lblInvalid.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblInvalid.setBounds(515, 377, 250, 25);
+		panel.add(lblInvalid);
 
-				Home home = new Home();
-				home.frame.setVisible(true);
-				frame.dispose();
+		JButton btnLogin = new JButton("Login");
+		btnLogin.setBounds(580, 408, 97, 41);
+		panel.add(btnLogin);
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				String username = txtUsername.getText();
+				String password = txtPassword.getText();
+
+				if (txtUsername.getText().equals("") || txtPassword.getText().equals("")) {
+					lblInvalid.setText("Enter Username & Password");
+				} else {
+
+				try {
+
+					serv = (serverInterface) Naming.lookup(name);
+
+					if (serv.loginConfirmation(username, password)) {
+
+						lblInvalid.setText("");
+
+						Home window = new Home();
+						window.frame.setVisible(true);
+						frame.dispose();
+
+					} else {
+						lblInvalid.setText("*Invalid Username or Password ");
+						txtPassword.setText("");
+					}
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Connection Error!");
+				}
+
+				}
 			}
 		});
-		btnNewButton.setBounds(600, 328, 85, 21);
-		panel.add(btnNewButton);
+		
 	}
 }

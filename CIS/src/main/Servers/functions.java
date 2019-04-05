@@ -31,11 +31,14 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	public boolean loginConfirmation(String username, String password) throws RemoteException {
 
-		if (username == "admin" && password == "admin") {
-			return true;
-		} else {
-			return false;
+
+		boolean stat = false;
+		if(username.equals("admin")) {
+			if(password.equals("admin")) {
+				stat = true;
+			}
 		}
+		return stat;
 	}
 
 	public boolean invoiceValidation(int number) throws RemoteException {
