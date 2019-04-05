@@ -85,7 +85,30 @@ public class Home {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	/**
+	 * 
+	 */
 	private void initialize() {
+		
+		String name = "rmi://localhost/test";
+		String question1 = "";
+		String question2 = "";
+		String question3 = "";
+		String question4 = "";
+		String question5 = "";
+		try {
+			serv = (serverInterface) Naming.lookup(name);
+
+			Vector<String> que = new Vector<String>(serv.questions());
+			question1 = que.get(0).toString();
+			question2 = que.get(1).toString();
+			question3 = que.get(2).toString();
+			question4 = que.get(3).toString();
+			question5 = que.get(4).toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1280, 971);
@@ -156,75 +179,101 @@ public class Home {
 
 		JPanel dypan9 = new JPanel();
 		dypan9.setBackground(Color.GRAY);
+		
+		JLabel lblSetOne = new JLabel();
+		lblSetOne.setText("\"" + question1 + "\"");
+		lblSetOne.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblSetTwo = new JLabel();
+		lblSetTwo.setText("\"" + question3 + "\"");
+		lblSetTwo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblSetThree = new JLabel();
+		lblSetThree.setText("\"" + question2 + "\"");
+		lblSetThree.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblSetFour = new JLabel();
+		lblSetFour.setText("\"" + question4 + "\"");
+		lblSetFour.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblFeedback = new JLabel();
+		lblFeedback.setText("\"" + question5 + "\"");
+		lblFeedback.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFeedback.setBounds(63,1230,516,29);
+		innerScrollPanel.add(lblFeedback);
+		
+		
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
 		gl_innerScrollPanel.setHorizontalGroup(
-				gl_innerScrollPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_innerScrollPanel
-						.createSequentialGroup().addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(104)
-										.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 1026,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(61)
-										.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addGroup(gl_innerScrollPanel.createSequentialGroup()
-														.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 516,
-																GroupLayout.PREFERRED_SIZE)
-														.addGap(82)
-														.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 516,
-																GroupLayout.PREFERRED_SIZE))
-												.addGroup(gl_innerScrollPanel.createSequentialGroup()
-														.addGroup(gl_innerScrollPanel
-																.createParallelGroup(Alignment.LEADING)
-																.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 516,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 516,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 516,
-																		GroupLayout.PREFERRED_SIZE))
-														.addGap(82)
-														.addGroup(gl_innerScrollPanel
-																.createParallelGroup(Alignment.LEADING)
-																.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 516,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 516,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 516,
-																		GroupLayout.PREFERRED_SIZE))))))
-						.addContainerGap(70, Short.MAX_VALUE)));
-		gl_innerScrollPanel.setVerticalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(79)
-						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
-								.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING, false)
+			gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_innerScrollPanel.createSequentialGroup()
+					.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_innerScrollPanel.createSequentialGroup()
+							.addGap(104)
+							.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 1026, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_innerScrollPanel.createSequentialGroup()
+							.addGap(61)
+							.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(dypan6,
-												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblSetThree, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE))
+									.addGap(82)
+									.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblSetFour, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGap(87)
-						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(dypan8,
-												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-								.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-						.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
+									.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblSetOne, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+										.addComponent(dypan1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE))
+									.addGap(82)
+									.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblSetTwo, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE))))))
+					.addContainerGap(70, Short.MAX_VALUE))
+		);
+		gl_innerScrollPanel.setVerticalGroup(
+			gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_innerScrollPanel.createSequentialGroup()
+					.addGap(32)
+					.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSetOne, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSetTwo, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+						.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_innerScrollPanel.createSequentialGroup()
+							.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_innerScrollPanel.createSequentialGroup()
+							.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)))
+					.addGap(40)
+					.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSetThree, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSetFour, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_innerScrollPanel.createSequentialGroup()
+							.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+						.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+					.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
 		innerScrollPanel.setLayout(gl_innerScrollPanel);
-		
-		
 
 		// create the dataset...
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -236,13 +285,13 @@ public class Home {
 		dataset.addValue(5.0, "Overall Taste", "June");
 
 		final JFreeChart chart = ChartFactory.createBarChart("Taste", // chart title
-				"Month",                  // domain axis label
-				"Rating",                 // range axis label
-				dataset,                  // data
+				"Month", // domain axis label
+				"Rating", // range axis label
+				dataset, // data
 				PlotOrientation.VERTICAL, // orientation
-				false,                    // include legend
-				true,                     // tool tips?
-				false                     // URLs?
+				false, // include legend
+				true, // tool tips?
+				false // URLs?
 		);
 		chart.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
 
@@ -263,8 +312,8 @@ public class Home {
 		ChartPanel cp2 = new ChartPanel(chart);
 		dypan2.add(cp2, BorderLayout.CENTER);
 		dypan2.validate();
-//
-//		// set the range axis to display integers only...
+
+//      set the range axis to display integers only...
 //		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 //		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 //		rangeAxis.setUpperMargin(0.15);
