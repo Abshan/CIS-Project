@@ -9,6 +9,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -36,6 +38,20 @@ import main.Servers.serverInterface;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RefineryUtilities;
 
 // comment
 public class Home {
@@ -72,167 +88,197 @@ public class Home {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// get the screen size as a java dimension
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//
-//		// get 2/3 of the height, and 2/3 of the width
-//		int height = screenSize.height * 2 / 3;
-//		int width = screenSize.width * 2 / 3;
-//
-//		// set the jframe height and width
-//		frame.setPreferredSize(new Dimension(width, height));
-//		
-//		Toolkit tk = Toolkit.getDefaultToolkit();
-//		int xSize = ((int) tk.getScreenSize().getWidth());
-//		int ySize = ((int) tk.getScreenSize().getHeight());
-//		frame.setSize(xSize,ySize);
-
-//		frame.setSize(1400, 971);
 		frame.setSize(1280, 971);
 
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(null);
 
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(128, 128, 128));
-		panel_4.setLayout(null);
+		JPanel outerScrollPanel = new JPanel();
+		outerScrollPanel.setBackground(new Color(128, 128, 128));
+		outerScrollPanel.setLayout(null);
 
-//	    panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
-		panel_4.setPreferredSize(new Dimension(491, 800));
+		outerScrollPanel.setPreferredSize(new Dimension(491, 800));
 
-//	    JScrollPane scrollPaneCenter = new JScrollPane(panel_4,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-		/*
-		 * String name = "rmi://localhost/test"; String question1 = ""; String question2
-		 * = ""; String question3 = ""; String question4 = ""; String question5 = "";
-		 * try { serv = (serverInterface) Naming.lookup(name);
-		 * 
-		 * Vector<String> que = new Vector<String>(serv.questions()); question1 =
-		 * que.get(0).toString(); question2 = que.get(1).toString(); question3 =
-		 * que.get(2).toString(); question4 = que.get(3).toString(); question5 =
-		 * que.get(4).toString(); } catch (Exception e) { e.printStackTrace(); }
-		 */
-		
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addComponent(panel_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(151, Short.MAX_VALUE))
-		);
+		GroupLayout gl_mainPanel = new GroupLayout(mainPanel);
+		gl_mainPanel.setHorizontalGroup(gl_mainPanel.createParallelGroup(Alignment.TRAILING)
+				.addComponent(outerScrollPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE));
+		gl_mainPanel.setVerticalGroup(gl_mainPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_mainPanel
+						.createSequentialGroup().addComponent(outerScrollPanel, GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(151, Short.MAX_VALUE)));
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 1264, 800);
-		panel_4.add(scrollPane);
+		outerScrollPanel.add(scrollPane);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(Color.WHITE);
-		scrollPane.setViewportView(panel1);
-		panel1.setPreferredSize(new Dimension(290, 1200));
+
+		JPanel innerScrollPanel = new JPanel();
+		innerScrollPanel.setPreferredSize(new Dimension(290, 1550));
+		innerScrollPanel.setBackground(Color.WHITE);
+		scrollPane.setViewportView(innerScrollPanel);
+
+		JPanel outerScrollPanel2 = new JPanel();
+		outerScrollPanel2.setLayout(null);
+
+		JScrollPane scrollPane2 = new JScrollPane();
+		scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane2.setBounds(0, 0, 1026, 256);
+		outerScrollPanel2.add(scrollPane2);
 
 		JPanel dypan1 = new JPanel();
 		dypan1.setBackground(Color.LIGHT_GRAY);
-
-		JPanel dypan2 = new JPanel();
-		dypan2.setBackground(Color.LIGHT_GRAY);
-
-		JPanel dypan3 = new JPanel();
-		dypan3.setBackground(Color.GRAY);
+		dypan1.setLayout(new BorderLayout());
 
 		JPanel dypan4 = new JPanel();
-		dypan4.setBackground(Color.GRAY);
-		
-		JPanel dypan5 = new JPanel();
-		dypan5.setBackground(Color.LIGHT_GRAY);
-		
-		JPanel dypan8 = new JPanel();
-		dypan8.setBackground(Color.LIGHT_GRAY);
-		
+		dypan4.setBackground(Color.LIGHT_GRAY);
+		dypan4.setLayout(new BorderLayout());
+
+		JPanel dypan2 = new JPanel();
+		dypan2.setBackground(Color.GRAY);
+
+		JPanel dypan3 = new JPanel();
+		dypan3.setBackground(Color.LIGHT_GRAY);
+
 		JPanel dypan6 = new JPanel();
-		dypan6.setBackground(Color.GRAY);
-		
+		dypan6.setBackground(Color.LIGHT_GRAY);
+
+		JPanel dypan5 = new JPanel();
+		dypan5.setBackground(Color.GRAY);
+
 		JPanel dypan7 = new JPanel();
 		dypan7.setBackground(Color.GRAY);
+
+		JPanel dypan8 = new JPanel();
+		dypan8.setBackground(Color.LIGHT_GRAY);
+
+		JPanel dypan9 = new JPanel();
+		dypan9.setBackground(Color.GRAY);
+		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
+		gl_innerScrollPanel.setHorizontalGroup(
+				gl_innerScrollPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_innerScrollPanel
+						.createSequentialGroup().addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(104)
+										.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 1026,
+												GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(61)
+										.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+												.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 516,
+														GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_innerScrollPanel.createSequentialGroup()
+														.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 516,
+																GroupLayout.PREFERRED_SIZE)
+														.addGap(82)
+														.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 516,
+																GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_innerScrollPanel.createSequentialGroup()
+														.addGroup(gl_innerScrollPanel
+																.createParallelGroup(Alignment.LEADING)
+																.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 516,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 516,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 516,
+																		GroupLayout.PREFERRED_SIZE))
+														.addGap(82)
+														.addGroup(gl_innerScrollPanel
+																.createParallelGroup(Alignment.LEADING)
+																.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 516,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 516,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 516,
+																		GroupLayout.PREFERRED_SIZE))))))
+						.addContainerGap(70, Short.MAX_VALUE)));
+		gl_innerScrollPanel.setVerticalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(79)
+						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_innerScrollPanel.createSequentialGroup()
+										.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(dypan6,
+												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_innerScrollPanel.createSequentialGroup()
+										.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE)))
+						.addGap(87)
+						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_innerScrollPanel.createSequentialGroup()
+										.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(dypan8,
+												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+								.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+						.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap()));
+		innerScrollPanel.setLayout(gl_innerScrollPanel);
 		
-		JPanel compan = new JPanel();
-		compan.setLayout(null);
-		compan.setSize(1026, 164);
-		JScrollPane scrollPane2 = new JScrollPane();
-		scrollPane2.setBounds(0, 0, 1026, 256);
-		compan.add(scrollPane2);
-		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS); 
-		JPanel panelcom = new JPanel();
-		panelcom.setBackground(Color.WHITE);
-		scrollPane2.setViewportView(panelcom);
-		panelcom.setPreferredSize(new Dimension(1026, 450));
+		
 
+		// create the dataset...
+		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		GroupLayout gl_panel1 = new GroupLayout(panel1);
-		gl_panel1.setHorizontalGroup(
-			gl_panel1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel1.createSequentialGroup()
-					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel1.createSequentialGroup()
-							.addGap(61)
-							.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel1.createSequentialGroup()
-									.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
-									.addGap(82)
-									.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel1.createSequentialGroup()
-									.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-										.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE))
-									.addGap(82)
-									.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-										.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)))))
-						.addGroup(gl_panel1.createSequentialGroup()
-							.addGap(104)
-							.addComponent(compan, GroupLayout.PREFERRED_SIZE, 1026, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(70, Short.MAX_VALUE))
+		dataset.addValue(1.5, "Overall Taste", "Jan");
+		dataset.addValue(4.0, "Overall Taste", "Feb");
+		dataset.addValue(3.0, "Overall Taste", "March");
+		dataset.addValue(3.5, "Overall Taste", "AApril");
+		dataset.addValue(5.0, "Overall Taste", "June");
+
+		final JFreeChart chart = ChartFactory.createBarChart("Taste", // chart title
+				"Month",                  // domain axis label
+				"Rating",                 // range axis label
+				dataset,                  // data
+				PlotOrientation.VERTICAL, // orientation
+				false,                    // include legend
+				true,                     // tool tips?
+				false                     // URLs?
 		);
-		gl_panel1.setVerticalGroup(
-			gl_panel1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel1.createSequentialGroup()
-					.addGap(69)
-					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
-					.addGap(56)
-					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
-					.addGap(58)
-					.addGroup(gl_panel1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
-					.addGap(57)
-					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-					.addComponent(compan, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-					.addGap(33))
-		);
-		panel1.setLayout(gl_panel1);
-		panel.setLayout(gl_panel);
+		chart.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
+
+		chart.setBackgroundPaint(Color.white);
+
+		// get a reference to the plot for further customization...
+		final CategoryPlot plot = chart.getCategoryPlot();
+		plot.setBackgroundPaint(Color.lightGray);
+		plot.setDomainGridlinePaint(Color.white);
+		plot.setRangeGridlinePaint(Color.white);
+
+		dypan1.setLayout(new java.awt.BorderLayout());
+		ChartPanel cp1 = new ChartPanel(chart);
+		dypan1.add(cp1, BorderLayout.CENTER);
+		dypan1.validate();
+
+		dypan2.setLayout(new java.awt.BorderLayout());
+		ChartPanel cp2 = new ChartPanel(chart);
+		dypan2.add(cp2, BorderLayout.CENTER);
+		dypan2.validate();
+//
+//		// set the range axis to display integers only...
+//		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+//		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+//		rangeAxis.setUpperMargin(0.15);
+//
+//		// disable bar outlines...
+		final CategoryItemRenderer renderer = plot.getRenderer();
+		renderer.setSeriesItemLabelsVisible(0, Boolean.TRUE);
+		mainPanel.setLayout(gl_mainPanel);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(panel,
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(mainPanel,
 				GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(121).addComponent(panel,
+				.addGroup(groupLayout.createSequentialGroup().addGap(121).addComponent(mainPanel,
 						GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
 		frame.getContentPane().setLayout(groupLayout);
-
 	}
 }
