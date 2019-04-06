@@ -203,7 +203,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 		int tot = 0;
 		Connection con = connect.getConnection();
-		String que = "select COUNT(opinion) op from where opinion = '" + opinion + "'";
+		String que = "select COUNT(opinion) op from reviewtab where opinion = '" + opinion + "'";
 
 		try {
 			Statement st;
@@ -215,9 +215,9 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 			}
 
 			st.close();
-			rs.close();
+//			rs.close();
 			con.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

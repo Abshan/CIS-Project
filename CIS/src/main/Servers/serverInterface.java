@@ -22,4 +22,6 @@ public interface serverInterface extends Remote {
 	public Vector<String> getComments(int number) throws RemoteException;
 
 	public int getValueOfFood(String attribute, String foodname) throws RemoteException;
+	
+	public int getValueOfOpinion(String opinion) throws RemoteException;
 }

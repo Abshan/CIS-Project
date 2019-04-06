@@ -65,12 +65,14 @@ public class testWindow {
 				int tot;
 				int avg;
 				int favg;
+				int op;
 				try {
 					serv = (serverInterface) Naming.lookup(name);
 					tot = serv.getValueOf("Ambiance", "Comfort");
 					avg = serv.getAvgValueOf("Ambiance", "Comfort");
 					favg = serv.getValueOfFood("Portion", "Burger");
-					JOptionPane.showMessageDialog(null, "Total is : " + tot +"\n Avg is: " + avg+"\n Food Avg is: " + favg);
+					op = serv.getValueOfOpinion("Maybe");
+					JOptionPane.showMessageDialog(null, "Total is : " + tot +"\n Avg is: " + avg+"\n Food Avg is: " + favg +"\n opinion Avg is: " + op);
 
 				} catch (Exception e) {
 					e.printStackTrace();
