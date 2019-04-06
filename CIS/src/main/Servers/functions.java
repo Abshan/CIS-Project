@@ -31,10 +31,9 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	public boolean loginConfirmation(String username, String password) throws RemoteException {
 
-
 		boolean stat = false;
-		if(username.equals("admin")) {
-			if(password.equals("admin")) {
+		if (username.equals("admin")) {
+			if (password.equals("admin")) {
 				stat = true;
 			}
 		}
@@ -198,6 +197,32 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 		}
 		return no;
 
+	}
+
+	public int getValueOfOpinion(String opinion) throws RemoteException {
+
+		int tot = 0;
+		Connection con = connect.getConnection();
+		String que = "select COUNT(opinion) op from where opinion = '" + opinion + "'";
+
+		try {
+			Statement st;
+			st = (Statement) con.createStatement();
+			ResultSet rs = st.executeQuery(que);
+
+			if (rs.next()) {
+				tot = rs.getInt("op");
+			}
+
+			st.close();
+			rs.close();
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return tot;
 	}
 
 }
