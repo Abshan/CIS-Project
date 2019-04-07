@@ -19,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import main.Servers.serverInterface;
+import javax.swing.ImageIcon;
 
 public class Login {
 
@@ -63,11 +64,12 @@ public class Login {
 		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1248, 658);
+		panel.setBounds(0, 0, 1248, 685);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(Login.class.getResource("/main/icons/admin.png")));
 		lblLogo.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblLogo.setBounds(565, 106, 150, 150);
 		panel.add(lblLogo);
