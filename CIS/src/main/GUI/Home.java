@@ -93,7 +93,8 @@ public class Home {
 	 */
 	private void initialize() {
 
-		String name = "rmi://localhost/test";
+		
+		String name = "rmi://localhost/test";                                                          //
 		String question1 = "";
 		String question2 = "";
 		String question3 = "";
@@ -139,9 +140,9 @@ public class Home {
 			portion = serv.getAvgValueOf("Food", "Portion");
 			serveTime = serv.getAvgValueOf("Service", "ServeTime");
 			waitingStaff = serv.getAvgValueOf("Service", "WaitingStaff");
-			cleanliness = serv.getAvgValueOf("Ambience", "Cleanliness");
-			lighting = serv.getAvgValueOf("Ambience", "Lighting");
-			comfort = serv.getAvgValueOf("Ambience", "Comfort");
+			cleanliness = serv.getAvgValueOf("Ambiance", "Cleanliness");
+			lighting = serv.getAvgValueOf("Ambiance", "Lighting");
+			comfort = serv.getAvgValueOf("Ambiance", "Comfort");
 			
 			yes = serv.getValueOfOpinion("Yes");
 			no = serv.getValueOfOpinion("No");
@@ -233,7 +234,7 @@ public class Home {
 
 		for (int i = 0; i <message.size(); i++) {
 			
-			areaFeedback.setText(areaFeedback.getText() + "\n \n \n" + message.indexOf(i) );
+			areaFeedback.setText(areaFeedback.getText() + "\n \n \n" + message.get(i));
 		}
 		
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
@@ -321,25 +322,6 @@ public class Home {
 						.addGap(49)));
 		innerScrollPanel.setLayout(gl_innerScrollPanel);
 
-		// create the dataset...
-//		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-//		dataset1.addValue(3.5, "", "Taste");
-//		dataset1.addValue(4.0, "", "Plating");
-//		dataset1.addValue(3.0, "", "Portion");
-//
-//		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-//		dataset2.addValue(1.5, "", "Cleanliness");
-//		dataset2.addValue(4.0, "", "Lighting");
-//		dataset2.addValue(3.0, "", "Comfort");
-//
-//		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
-//		dataset3.addValue(1.0, "", "Serve Time");
-//		dataset3.addValue(2.0, "", "Waiting Staff");
-//
-//		final DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
-//		dataset4.addValue(4.5, "", "Yes");
-//		dataset4.addValue(4.0, "", "No");
-//		dataset4.addValue(3.5, "", "Maybe");
 		
 		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
 		dataset1.addValue(taste, "", "Taste");
@@ -361,53 +343,6 @@ public class Home {
 		dataset4.addValue(maybe, "", "Maybe");
 
 		
-		
-		
-		
-//		final DefaultCategoryDataset dataset5 = new DefaultCategoryDataset();
-//		dataset5.addValue(4.0, "Overall Taste", "Jan");
-//		dataset5.addValue(4.0, "Overall Taste", "Feb");
-//		dataset5.addValue(3.0, "Overall Taste", "March");
-//		dataset5.addValue(3.5, "Overall Taste", "AApril");
-//		dataset5.addValue(2.5, "Overall Taste", "June");
-//
-//		final DefaultCategoryDataset dataset6 = new DefaultCategoryDataset();
-//		dataset6.addValue(2.5, "Overall Taste", "Jan");
-//		dataset6.addValue(4.0, "Overall Taste", "Feb");
-//		dataset6.addValue(3.0, "Overall Taste", "March");
-//		dataset6.addValue(5.0, "Overall Taste", "AApril");
-//		dataset6.addValue(4.5, "Overall Taste", "June");
-//
-//		final DefaultCategoryDataset dataset7 = new DefaultCategoryDataset();
-//		dataset7.addValue(0.5, "Overall Taste", "Jan");
-//		dataset7.addValue(1.5, "Overall Taste", "Feb");
-//		dataset7.addValue(2.5, "Overall Taste", "March");
-//		dataset7.addValue(3.5, "Overall Taste", "AApril");
-//		dataset7.addValue(4.5, "Overall Taste", "June");
-//
-//		final DefaultCategoryDataset dataset8 = new DefaultCategoryDataset();
-//		dataset8.addValue(3.0, "Overall Taste", "Jan");
-//		dataset8.addValue(4.0, "Overall Taste", "Feb");
-//		dataset8.addValue(3.0, "Overall Taste", "March");
-//		dataset8.addValue(3.5, "Overall Taste", "AApril");
-//		dataset8.addValue(4.5, "Overall Taste", "June");
-//
-//		final DefaultCategoryDataset dataset9 = new DefaultCategoryDataset();
-//		dataset9.addValue(1.5, "Yes", "Jan");
-//		dataset9.addValue(2.5, "Yes", "Feb");
-//		dataset9.addValue(3.0, "Yes", "March");
-//		dataset9.addValue(3.5, "Yes", "April");
-//		dataset9.addValue(3.0, "Yes", "June");
-//		dataset9.addValue(2.5, "No", "Jan");
-//		dataset9.addValue(3.0, "No", "Feb");
-//		dataset9.addValue(4.5, "No", "March");
-//		dataset9.addValue(4.0, "No", "April");
-//		dataset9.addValue(1.5, "No", "June");
-//		dataset9.addValue(1.0, "Maybe", "Jan");
-//		dataset9.addValue(1.5, "Maybe", "Feb");
-//		dataset9.addValue(2.0, "Maybe", "March");
-//		dataset9.addValue(1.5, "Maybe", "April");
-//		dataset9.addValue(0.5, "Maybe", "June");
 
 		final JFreeChart chart1 = ChartFactory.createBarChart("", "", "Rating", dataset1, PlotOrientation.VERTICAL,
 				false, true, false);
@@ -425,35 +360,6 @@ public class Home {
 				false, true, false);
 		chart4.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
 
-//		final JFreeChart chart5 = ChartFactory.createBarChart("Lighting", "Month", "Rating", dataset5,PlotOrientation.VERTICAL, false, true, false);
-//		chart5.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-//		
-//		final JFreeChart chart6 = ChartFactory.createBarChart("Comfort", "Month", "Rating", dataset6,PlotOrientation.VERTICAL, false, true, false);
-//		chart6.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-//		
-//		final JFreeChart chart7 = ChartFactory.createBarChart("Serve Time", "Month", "Rating", dataset7,PlotOrientation.VERTICAL, false, true, false);
-//		chart7.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-//		
-//		final JFreeChart chart8 = ChartFactory.createBarChart("Waiting Staff", "Month", "Rating", dataset8,PlotOrientation.VERTICAL, false, true, false);
-//		chart8.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-//		
-//		final JFreeChart chart9 = ChartFactory.createBarChart("Revisit Restaurant", "Month", "Response", dataset9,PlotOrientation.VERTICAL, false, true, false);
-//		chart9.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-//		
-
-//		chart.setBackgroundPaint(Color.white);
-//      get a reference to the plot for further customization...
-//		final CategoryPlot plot = chart.getCategoryPlot();
-//		plot.setBackgroundPaint(Color.lightGray);
-//		plot.setDomainGridlinePaint(Color.white);
-//		plot.setRangeGridlinePaint(Color.white);
-//      set the range axis to display integers only...
-//		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-//		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-//		rangeAxis.setUpperMargin(0.15);
-//      disable bar outlines...
-//		final CategoryItemRenderer renderer = plot.getRenderer();
-//		renderer.setSeriesItemLabelsVisible(0, Boolean.TRUE);
 
 		dypan1.setLayout(new java.awt.BorderLayout());
 		ChartPanel cp1 = new ChartPanel(chart1);
