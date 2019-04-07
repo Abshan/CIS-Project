@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import main.Servers.serverInterface;
@@ -66,7 +67,7 @@ public class Login {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel lblLogo = new JLabel("     Logo");
+		JLabel lblLogo = new JLabel("");
 		lblLogo.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblLogo.setBounds(565, 106, 150, 150);
 		panel.add(lblLogo);
@@ -76,7 +77,7 @@ public class Login {
 		panel.add(txtUsername);
 		txtUsername.setColumns(10);
 
-		JTextField txtPassword = new JTextField();
+		JPasswordField txtPassword = new JPasswordField();
 		txtPassword.setBounds(520, 338, 236, 39);
 		panel.add(txtPassword);
 		txtPassword.setColumns(10);
@@ -90,7 +91,7 @@ public class Login {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(580, 408, 97, 41);
 		panel.add(btnLogin);
-		
+
 		/*
 		 * Initialize login button
 		 */
@@ -104,30 +105,30 @@ public class Login {
 					lblInvalid.setText("Enter Username & Password");
 				} else {
 
-				try {
+					try {
 
-					serv = (serverInterface) Naming.lookup(name);
+						serv = (serverInterface) Naming.lookup(name);
 
-					if (serv.loginConfirmation(username, password)) {
+						if (serv.loginConfirmation(username, password)) {
 
-						lblInvalid.setText("");
+							lblInvalid.setText("");
 
-						Home window = new Home();
-						window.frame.setVisible(true);
-						frame.dispose();
+							Home window = new Home();
+							window.frame.setVisible(true);
+							frame.dispose();
 
-					} else {
-						lblInvalid.setText("*Invalid Username or Password ");
-						txtPassword.setText("");
+						} else {
+							lblInvalid.setText("*Invalid Username or Password ");
+							txtPassword.setText("");
+						}
+
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Connection Error!");
 					}
-
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Connection Error!");
-				}
 
 				}
 			}
 		});
-		
+
 	}
 }
