@@ -152,6 +152,8 @@ public class Home {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -220,10 +222,20 @@ public class Home {
 		lblSetFive.setText("\"" + question5 + "\"");
 		lblSetFive.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane feedbackScrollPane = new JScrollPane();
+		feedbackScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		feedbackScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JTextArea areaFeedback = new JTextArea();
+		areaFeedback.setPreferredSize(new Dimension(1026, 1000));
+		feedbackScrollPane.setViewportView(areaFeedback);
+		areaFeedback.setEditable(false);
 
+		for (int i = 0; i <message.size(); i++) {
+			
+			areaFeedback.setText(areaFeedback.getText() + "\n \n \n" + message.indexOf(i) );
+		}
+		
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
 		gl_innerScrollPanel
 				.setHorizontalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
@@ -231,7 +243,7 @@ public class Home {
 								gl_innerScrollPanel
 										.createSequentialGroup().addContainerGap(114, Short.MAX_VALUE)
 										.addComponent(
-												scrollPane_1, GroupLayout.PREFERRED_SIZE, 1026,
+												feedbackScrollPane, GroupLayout.PREFERRED_SIZE, 1026,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(105))
 						.addGroup(Alignment.LEADING,
@@ -305,48 +317,48 @@ public class Home {
 												GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
 						.addComponent(lblSetFive, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE).addGap(18)
-						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
+						.addComponent(feedbackScrollPane, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
 						.addGap(49)));
 		innerScrollPanel.setLayout(gl_innerScrollPanel);
 
 		// create the dataset...
-		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-		dataset1.addValue(3.5, "", "Taste");
-		dataset1.addValue(4.0, "", "Plating");
-		dataset1.addValue(3.0, "", "Portion");
-
-		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-		dataset2.addValue(1.5, "", "Cleanliness");
-		dataset2.addValue(4.0, "", "Lighting");
-		dataset2.addValue(3.0, "", "Comfort");
-
-		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
-		dataset3.addValue(1.0, "", "Serve Time");
-		dataset3.addValue(2.0, "", "Waiting Staff");
-
-		final DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
-		dataset4.addValue(4.5, "", "Yes");
-		dataset4.addValue(4.0, "", "No");
-		dataset4.addValue(3.5, "", "Maybe");
-		
 //		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-//		dataset1.addValue(taste, "", "Taste");
-//		dataset1.addValue(plating, "", "Plating");
-//		dataset1.addValue(portion, "", "Portion");
-//		
+//		dataset1.addValue(3.5, "", "Taste");
+//		dataset1.addValue(4.0, "", "Plating");
+//		dataset1.addValue(3.0, "", "Portion");
+//
 //		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-//		dataset2.addValue(cleanliness, "", "Cleanliness");
-//		dataset2.addValue(lighting, "", "Lighting");
-//		dataset2.addValue(comfort, "", "Comfort");
-//		
+//		dataset2.addValue(1.5, "", "Cleanliness");
+//		dataset2.addValue(4.0, "", "Lighting");
+//		dataset2.addValue(3.0, "", "Comfort");
+//
 //		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
-//		dataset3.addValue(serveTime, "", "Serve Time");
-//		dataset3.addValue(waitingStaff, "", "Waiting Staff");
+//		dataset3.addValue(1.0, "", "Serve Time");
+//		dataset3.addValue(2.0, "", "Waiting Staff");
 //
 //		final DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
-//		dataset4.addValue(yes, "", "Yes");
-//		dataset4.addValue(no, "", "No");
-//		dataset4.addValue(maybe, "", "Maybe");
+//		dataset4.addValue(4.5, "", "Yes");
+//		dataset4.addValue(4.0, "", "No");
+//		dataset4.addValue(3.5, "", "Maybe");
+		
+		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+		dataset1.addValue(taste, "", "Taste");
+		dataset1.addValue(plating, "", "Plating");
+		dataset1.addValue(portion, "", "Portion");
+		
+		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
+		dataset2.addValue(cleanliness, "", "Cleanliness");
+		dataset2.addValue(lighting, "", "Lighting");
+		dataset2.addValue(comfort, "", "Comfort");
+		
+		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
+		dataset3.addValue(serveTime, "", "Serve Time");
+		dataset3.addValue(waitingStaff, "", "Waiting Staff");
+
+		final DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
+		dataset4.addValue(yes, "", "Yes");
+		dataset4.addValue(no, "", "No");
+		dataset4.addValue(maybe, "", "Maybe");
 
 		
 		
