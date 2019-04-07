@@ -1,5 +1,9 @@
 package main.GUI;
 
+/*
+ * Author : Kowshigan Senthilrajah
+ */
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -86,6 +90,10 @@ public class Login {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(580, 408, 97, 41);
 		panel.add(btnLogin);
+		
+		/*
+		 * Initialize login button
+		 */
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 

@@ -1,11 +1,15 @@
 package main.Servers;
 
+/*
+ * Author : Mohamed Abshan
+ */
+
 import java.rmi.*;
 
-public class Server  {
+public class Server {
 	public static void main(String[] argv) {
 		try {
-			
+
 			Naming.rebind("rmi://localhost/test", new functions());
 
 			System.out.println("Server is ready");

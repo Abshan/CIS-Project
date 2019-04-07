@@ -1,5 +1,9 @@
 package main.GUI;
 
+/*
+ * Author : Mohamed Abshan
+ */
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -11,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,23 +25,17 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import main.Servers.review;
 import main.Servers.serverInterface;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.awt.Rectangle;
 
 public class CustomerGUI {
 
 	public JFrame frame;
 	serverInterface serv;
 	public String op = null;
-
-	/**
-	 * Launch the application.
-	 */
-//	private static serverInterface look;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,63 +51,14 @@ public class CustomerGUI {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public CustomerGUI() {
 		initialize();
 	}
 
-//	private static JPanel addPanel(int number) {
-//		JPanel panel_1 = new JPanel();
-//
-//		panel_1.setPreferredSize(new Dimension(980, 250));
-//		panel_1.setBackground(Color.GRAY);
-//		panel_1.setBorder(BorderFactory.createTitledBorder(""));
-//		panel_1.setLayout(null);
-//
-//		JLabel lblNewLabel = new JLabel("  Image");
-//		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-//		lblNewLabel.setBounds(26, 79, 115, 115);
-//		panel_1.add(lblNewLabel);
-//
-//		JLabel lblFoodName = new JLabel("         Food Name");
-//		lblFoodName.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-//		lblFoodName.setBounds(167, 120, 281, 33);
-//		panel_1.add(lblFoodName);
-//
-//		JLabel lblTaste = new JLabel("Taste:");
-//		lblTaste.setBounds(537, 52, 115, 33);
-//		panel_1.add(lblTaste);
-//
-//		JLabel lblPlating = new JLabel("Plating:");
-//		lblPlating.setBounds(537, 120, 115, 33);
-//		panel_1.add(lblPlating);
-//
-//		JLabel lblPortion = new JLabel("Portion:");
-//		lblPortion.setBounds(537, 189, 115, 33);
-//		panel_1.add(lblPortion);
-//
-//		JSlider slider = new JSlider();
-//		slider.setBounds(663, 59, 281, 26);
-//		slider.setBackground(Color.GRAY);
-//		panel_1.add(slider);
-//
-//		JSlider slider_1 = new JSlider();
-//		slider_1.setBounds(663, 120, 281, 26);
-//		slider_1.setBackground(Color.GRAY);
-//		panel_1.add(slider_1);
-//
-//		JSlider slider_2 = new JSlider();
-//		slider_2.setBounds(663, 196, 281, 26);
-//		slider_2.setBackground(Color.GRAY);
-//		panel_1.add(slider_2);
-//
-//		return panel_1;
-//	}
-
 	private void initialize() {
-
+		/*
+		 * Get questions from the server
+		 */
 		String name = "rmi://localhost/test";
 		String question1 = "";
 		String question2 = "";
@@ -129,6 +77,10 @@ public class CustomerGUI {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		/*
+		 * Customer GUI creation
+		 */
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1080, 1920);
@@ -353,6 +305,10 @@ public class CustomerGUI {
 		btnCancel.setBounds(544, 1708, 226, 63);
 		mainpanel.add(btnCancel);
 
+		/*
+		 * User opinion check_box validation and controling
+		 */
+
 		yes_chckbx.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (yes_chckbx.isSelected()) {
@@ -382,6 +338,10 @@ public class CustomerGUI {
 				}
 			}
 		});
+
+		/*
+		 * Component change listner to detect change from rating sliders
+		 */
 
 		taste_sli.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -511,6 +471,10 @@ public class CustomerGUI {
 			}
 		});
 
+		/*
+		 * Confirm button coding to insert values into the database
+		 */
+
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -535,6 +499,10 @@ public class CustomerGUI {
 					e.printStackTrace();
 				}
 
+				/*
+				 * Reseting GUI values
+				 */
+
 				taste_sli.setValue(3);
 				plating_sli.setValue(3);
 				portion_sli.setValue(3);
@@ -548,28 +516,31 @@ public class CustomerGUI {
 				no_chckbx.setSelected(false);
 				maybe_chckbx.setSelected(false);
 				review.orderNo = 0;
-				
+
 				try {
-					JOptionPane.showOptionDialog(null, "Thank You For Your Time, Have a Good Day!"," ", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+					JOptionPane.showOptionDialog(null, "Thank You For Your Time, Have a Good Day!", " ",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[] {}, null);
 					TimeUnit.SECONDS.sleep(1);
-					
+
 				} catch (InterruptedException e) {
-					
+
 					e.printStackTrace();
 				}
-				
+
 				CustomerLoginGUI window = new CustomerLoginGUI();
 				window.frame.setVisible(true);
 				frame.dispose();
-
-				
 
 			}
 		});
-		
+
+		/*
+		 * Cancel button coding
+		 */
+
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				taste_sli.setValue(3);
 				plating_sli.setValue(3);
 				portion_sli.setValue(3);
@@ -583,12 +554,11 @@ public class CustomerGUI {
 				no_chckbx.setSelected(false);
 				maybe_chckbx.setSelected(false);
 				review.orderNo = 0;
-				
+
 				CustomerLoginGUI window = new CustomerLoginGUI();
 				window.frame.setVisible(true);
 				frame.dispose();
 
-				
 			}
 		});
 
