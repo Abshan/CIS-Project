@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,6 +25,8 @@ import javax.swing.border.TitledBorder;
 
 import main.Servers.review;
 import main.Servers.serverInterface;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class CustomerGUI {
 
@@ -183,6 +186,18 @@ public class CustomerGUI {
 		portion_sli.setBounds(406, 239, 316, 26);
 		panel.add(portion_sli);
 
+		JLabel lblTasteSli = new JLabel("Average");
+		lblTasteSli.setBounds(748, 112, 210, 33);
+		panel.add(lblTasteSli);
+
+		JLabel lblPlatingSli = new JLabel("Average");
+		lblPlatingSli.setBounds(748, 173, 210, 33);
+		panel.add(lblPlatingSli);
+
+		JLabel lblPortionSli = new JLabel("Average");
+		lblPortionSli.setBounds(748, 234, 210, 33);
+		panel.add(lblPortionSli);
+
 		JPanel quepanel = new JPanel();
 		quepanel.setBackground(Color.GRAY);
 		quepanel.setBounds(26, 380, 996, 253);
@@ -215,6 +230,14 @@ public class CustomerGUI {
 		waitingstaff_sli.setBackground(Color.GRAY);
 		waitingstaff_sli.setBounds(406, 171, 316, 26);
 		quepanel.add(waitingstaff_sli);
+
+		JLabel lblServeTimeSli = new JLabel("Average");
+		lblServeTimeSli.setBounds(748, 92, 210, 33);
+		quepanel.add(lblServeTimeSli);
+
+		JLabel lblWaitingStaffSli = new JLabel("Average");
+		lblWaitingStaffSli.setBounds(748, 165, 210, 33);
+		quepanel.add(lblWaitingStaffSli);
 
 		JPanel quepanel2 = new JPanel();
 		quepanel2.setBackground(Color.GRAY);
@@ -258,6 +281,18 @@ public class CustomerGUI {
 		comfort_sli.setBackground(Color.GRAY);
 		comfort_sli.setBounds(406, 239, 316, 26);
 		quepanel2.add(comfort_sli);
+
+		JLabel lblCleanlinessSli = new JLabel("Average");
+		lblCleanlinessSli.setBounds(760, 112, 210, 33);
+		quepanel2.add(lblCleanlinessSli);
+
+		JLabel lblLightingSli = new JLabel("Average");
+		lblLightingSli.setBounds(760, 170, 210, 33);
+		quepanel2.add(lblLightingSli);
+
+		JLabel lblComfortSli = new JLabel("Average");
+		lblComfortSli.setBounds(760, 234, 210, 33);
+		quepanel2.add(lblComfortSli);
 
 		JPanel quepanel3 = new JPanel();
 		quepanel3.setBackground(Color.GRAY);
@@ -347,6 +382,134 @@ public class CustomerGUI {
 			}
 		});
 
+		taste_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (taste_sli.getValue() == 1) {
+					lblTasteSli.setText("Poor");
+				} else if (taste_sli.getValue() == 2) {
+					lblTasteSli.setText("Below Average");
+				} else if (taste_sli.getValue() == 3) {
+					lblTasteSli.setText("Average");
+				} else if (taste_sli.getValue() == 4) {
+					lblTasteSli.setText("Good");
+				} else if (taste_sli.getValue() == 5) {
+					lblTasteSli.setText("Excellent");
+				}
+			}
+		});
+
+		plating_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (plating_sli.getValue() == 1) {
+					lblPlatingSli.setText("Poor");
+				} else if (plating_sli.getValue() == 2) {
+					lblPlatingSli.setText("Below Average");
+				} else if (plating_sli.getValue() == 3) {
+					lblPlatingSli.setText("Average");
+				} else if (plating_sli.getValue() == 4) {
+					lblPlatingSli.setText("Good");
+				} else if (plating_sli.getValue() == 5) {
+					lblPlatingSli.setText("Excellent");
+				}
+			}
+		});
+
+		portion_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (portion_sli.getValue() == 1) {
+					lblPortionSli.setText("Poor");
+				} else if (portion_sli.getValue() == 2) {
+					lblPortionSli.setText("Below Average");
+				} else if (portion_sli.getValue() == 3) {
+					lblPortionSli.setText("Average");
+				} else if (portion_sli.getValue() == 4) {
+					lblPortionSli.setText("Good");
+				} else if (portion_sli.getValue() == 5) {
+					lblPortionSli.setText("Excellent");
+				}
+			}
+		});
+
+		servetime_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (servetime_sli.getValue() == 1) {
+					lblServeTimeSli.setText("Poor");
+				} else if (servetime_sli.getValue() == 2) {
+					lblServeTimeSli.setText("Below Average");
+				} else if (servetime_sli.getValue() == 3) {
+					lblServeTimeSli.setText("Average");
+				} else if (servetime_sli.getValue() == 4) {
+					lblServeTimeSli.setText("Good");
+				} else if (servetime_sli.getValue() == 5) {
+					lblServeTimeSli.setText("Excellent");
+				}
+			}
+		});
+
+		waitingstaff_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (waitingstaff_sli.getValue() == 1) {
+					lblWaitingStaffSli.setText("Poor");
+				} else if (waitingstaff_sli.getValue() == 2) {
+					lblWaitingStaffSli.setText("Below Average");
+				} else if (waitingstaff_sli.getValue() == 3) {
+					lblWaitingStaffSli.setText("Average");
+				} else if (waitingstaff_sli.getValue() == 4) {
+					lblWaitingStaffSli.setText("Good");
+				} else if (waitingstaff_sli.getValue() == 5) {
+					lblWaitingStaffSli.setText("Excellent");
+				}
+			}
+		});
+
+		cleanliness_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (cleanliness_sli.getValue() == 1) {
+					lblCleanlinessSli.setText("Poor");
+				} else if (cleanliness_sli.getValue() == 2) {
+					lblCleanlinessSli.setText("Below Average");
+				} else if (cleanliness_sli.getValue() == 3) {
+					lblCleanlinessSli.setText("Average");
+				} else if (cleanliness_sli.getValue() == 4) {
+					lblCleanlinessSli.setText("Good");
+				} else if (cleanliness_sli.getValue() == 5) {
+					lblCleanlinessSli.setText("Excellent");
+				}
+			}
+		});
+
+		lighting_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (lighting_sli.getValue() == 1) {
+					lblLightingSli.setText("Poor");
+				} else if (lighting_sli.getValue() == 2) {
+					lblLightingSli.setText("Below Average");
+				} else if (lighting_sli.getValue() == 3) {
+					lblLightingSli.setText("Average");
+				} else if (lighting_sli.getValue() == 4) {
+					lblLightingSli.setText("Good");
+				} else if (lighting_sli.getValue() == 5) {
+					lblLightingSli.setText("Excellent");
+				}
+			}
+		});
+
+		comfort_sli.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (comfort_sli.getValue() == 1) {
+					lblComfortSli.setText("Poor");
+				} else if (comfort_sli.getValue() == 2) {
+					lblComfortSli.setText("Below Average");
+				} else if (comfort_sli.getValue() == 3) {
+					lblComfortSli.setText("Average");
+				} else if (comfort_sli.getValue() == 4) {
+					lblComfortSli.setText("Good");
+				} else if (comfort_sli.getValue() == 5) {
+					lblComfortSli.setText("Excellent");
+				}
+			}
+		});
+
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -370,6 +533,41 @@ public class CustomerGUI {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+
+				taste_sli.setValue(3);
+				plating_sli.setValue(3);
+				portion_sli.setValue(3);
+				servetime_sli.setValue(3);
+				waitingstaff_sli.setValue(3);
+				cleanliness_sli.setValue(3);
+				lighting_sli.setValue(3);
+				comfort_sli.setValue(3);
+				message_txt.setText("");
+				yes_chckbx.setSelected(false);
+				no_chckbx.setSelected(false);
+				maybe_chckbx.setSelected(false);
+				review.orderNo = 0;
+				
+				try {
+					JOptionPane.showOptionDialog(null, "Thank You For Your Time, Have a Good Day!"," ", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+					TimeUnit.SECONDS.sleep(1);
+					
+				} catch (InterruptedException e) {
+					
+					e.printStackTrace();
+				}
+				
+				CustomerLoginGUI window = new CustomerLoginGUI();
+				window.frame.setVisible(true);
+				frame.dispose();
+
+				
+
+			}
+		});
+		
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				
 				taste_sli.setValue(3);
 				plating_sli.setValue(3);
@@ -388,14 +586,10 @@ public class CustomerGUI {
 				CustomerLoginGUI window = new CustomerLoginGUI();
 				window.frame.setVisible(true);
 				frame.dispose();
-				
-				JOptionPane.showMessageDialog(null, "Thank You For Your Time, Have a Good Day!");
-				
-				
 
+				
 			}
 		});
 
 	}
-
 }
