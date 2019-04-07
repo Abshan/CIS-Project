@@ -231,10 +231,11 @@ public class Home {
 		areaFeedback.setPreferredSize(new Dimension(1026, 1000));
 		feedbackScrollPane.setViewportView(areaFeedback);
 		areaFeedback.setEditable(false);
+		areaFeedback.setFont(new Font("Tahoma", Font.BOLD, 16));
 
 		for (int i = 0; i <message.size(); i++) {
 			
-			areaFeedback.setText(areaFeedback.getText() + "\n \n \n" + message.get(i));
+			areaFeedback.setText(areaFeedback.getText() + "\n \n " + message.get(i));
 		}
 		
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
