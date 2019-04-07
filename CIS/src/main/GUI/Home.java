@@ -25,6 +25,9 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.Naming;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
@@ -109,6 +112,47 @@ public class Home {
 			e.printStackTrace();
 		}
 
+		Date now = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String date = df.format(now);
+
+		int taste = 0;
+		int plating = 0;
+		int portion = 0;
+		int serveTime = 0;
+		int waitingStaff = 0;
+		int cleanliness = 0;
+		int lighting = 0;
+		int comfort = 0;
+		int yes = 0;
+		int no = 0;
+		int maybe = 0;
+//		String message = "";
+		Vector<String> message = null;
+
+		try {
+			
+			serv = (serverInterface) Naming.lookup(name);
+			
+			taste = serv.getAvgValueOf("Food", "Taste");
+			plating = serv.getAvgValueOf("Food", "Plating");
+			portion = serv.getAvgValueOf("Food", "Portion");
+			serveTime = serv.getAvgValueOf("Service", "ServeTime");
+			waitingStaff = serv.getAvgValueOf("Service", "WaitingStaff");
+			cleanliness = serv.getAvgValueOf("Ambience", "Cleanliness");
+			lighting = serv.getAvgValueOf("Ambience", "Lighting");
+			comfort = serv.getAvgValueOf("Ambience", "Comfort");
+			
+			yes = serv.getValueOfOpinion("Yes");
+			no = serv.getValueOfOpinion("No");
+			maybe = serv.getValueOfOpinion("Maybe");
+			
+			message = new Vector<String>(serv.getComments(20));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1280, 971);
@@ -138,18 +182,9 @@ public class Home {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		JPanel innerScrollPanel = new JPanel();
-		innerScrollPanel.setPreferredSize(new Dimension(290, 1550));
+		innerScrollPanel.setPreferredSize(new Dimension(290, 1000));
 		innerScrollPanel.setBackground(Color.WHITE);
 		scrollPane.setViewportView(innerScrollPanel);
-
-		JPanel outerScrollPanel2 = new JPanel();
-		outerScrollPanel2.setLayout(null);
-
-		JScrollPane scrollPane2 = new JScrollPane();
-		scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane2.setBounds(0, 0, 1026, 256);
-		outerScrollPanel2.add(scrollPane2);
 
 		JPanel dypan1 = new JPanel();
 		dypan1.setBackground(Color.LIGHT_GRAY);
@@ -159,26 +194,11 @@ public class Home {
 		dypan4.setBackground(Color.LIGHT_GRAY);
 		dypan4.setLayout(new BorderLayout());
 
-		JPanel dypan2 = new JPanel();
-		dypan2.setBackground(Color.GRAY);
-
 		JPanel dypan3 = new JPanel();
 		dypan3.setBackground(Color.LIGHT_GRAY);
 
 		JPanel dypan6 = new JPanel();
 		dypan6.setBackground(Color.LIGHT_GRAY);
-
-		JPanel dypan5 = new JPanel();
-		dypan5.setBackground(Color.GRAY);
-
-		JPanel dypan7 = new JPanel();
-		dypan7.setBackground(Color.GRAY);
-
-		JPanel dypan8 = new JPanel();
-		dypan8.setBackground(Color.LIGHT_GRAY);
-
-		JPanel dypan9 = new JPanel();
-		dypan9.setBackground(Color.GRAY);
 
 		JLabel lblSetOne = new JLabel();
 		lblSetOne.setText("\"" + question1 + "\"");
@@ -196,54 +216,73 @@ public class Home {
 		lblSetFour.setText("\"" + question4 + "\"");
 		lblSetFour.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-		JLabel lblFeedback = new JLabel();
-		lblFeedback.setText("\"" + question5 + "\"");
-		lblFeedback.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFeedback.setBounds(63, 1230, 516, 29);
-		innerScrollPanel.add(lblFeedback);
+		JLabel lblSetFive = new JLabel();
+		lblSetFive.setText("\"" + question5 + "\"");
+		lblSetFive.setFont(new Font("Tahoma", Font.PLAIN, 18));
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
-		gl_innerScrollPanel.setHorizontalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_innerScrollPanel.createSequentialGroup().addGroup(gl_innerScrollPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(104).addComponent(
-								outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 1026, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(61).addGroup(gl_innerScrollPanel
-								.createParallelGroup(Alignment.LEADING)
-								.addComponent(dypan8, GroupLayout.PREFERRED_SIZE, 516, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_innerScrollPanel.createSequentialGroup()
+		gl_innerScrollPanel
+				.setHorizontalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_innerScrollPanel
+										.createSequentialGroup().addContainerGap(114, Short.MAX_VALUE)
+										.addComponent(
+												scrollPane_1, GroupLayout.PREFERRED_SIZE, 1026,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(105))
+						.addGroup(Alignment.LEADING,
+								gl_innerScrollPanel.createSequentialGroup().addGap(61)
 										.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblSetThree, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(82)
-										.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblSetFour, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)))
-								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblSetOne, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-														516, Short.MAX_VALUE)
-												.addComponent(dypan1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE,
-														516, GroupLayout.PREFERRED_SIZE))
-										.addGap(82)
-										.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
-												.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblSetTwo, GroupLayout.PREFERRED_SIZE, 516,
-														GroupLayout.PREFERRED_SIZE))))))
-						.addContainerGap(70, Short.MAX_VALUE)));
+												.addGroup(gl_innerScrollPanel
+														.createSequentialGroup()
+														.addComponent(lblSetFive, GroupLayout.PREFERRED_SIZE, 516,
+																GroupLayout.PREFERRED_SIZE)
+														.addContainerGap())
+												.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_innerScrollPanel.createSequentialGroup()
+																.addGroup(gl_innerScrollPanel
+																		.createParallelGroup(Alignment.LEADING)
+																		.addGroup(gl_innerScrollPanel
+																				.createSequentialGroup()
+																				.addComponent(lblSetThree,
+																						GroupLayout.PREFERRED_SIZE, 516,
+																						GroupLayout.PREFERRED_SIZE)
+																				.addGap(82).addComponent(lblSetFour,
+																						GroupLayout.PREFERRED_SIZE, 516,
+																						GroupLayout.PREFERRED_SIZE))
+																		.addGroup(gl_innerScrollPanel
+																				.createSequentialGroup()
+																				.addComponent(dypan3,
+																						GroupLayout.PREFERRED_SIZE, 516,
+																						GroupLayout.PREFERRED_SIZE)
+																				.addGap(82)
+																				.addComponent(dypan6,
+																						GroupLayout.PREFERRED_SIZE, 516,
+																						GroupLayout.PREFERRED_SIZE)))
+																.addContainerGap())
+														.addGroup(gl_innerScrollPanel.createSequentialGroup()
+																.addGroup(gl_innerScrollPanel
+																		.createParallelGroup(Alignment.TRAILING)
+																		.addComponent(lblSetOne, Alignment.LEADING,
+																				GroupLayout.DEFAULT_SIZE, 516,
+																				Short.MAX_VALUE)
+																		.addComponent(dypan1, Alignment.LEADING,
+																				GroupLayout.PREFERRED_SIZE, 516,
+																				GroupLayout.PREFERRED_SIZE))
+																.addGap(82)
+																.addGroup(gl_innerScrollPanel
+																		.createParallelGroup(Alignment.TRAILING)
+																		.addComponent(dypan4,
+																				GroupLayout.PREFERRED_SIZE, 516,
+																				GroupLayout.PREFERRED_SIZE)
+																		.addComponent(lblSetTwo,
+																				GroupLayout.PREFERRED_SIZE, 516,
+																				GroupLayout.PREFERRED_SIZE))
+																.addContainerGap(70, Short.MAX_VALUE))))));
 		gl_innerScrollPanel.setVerticalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_innerScrollPanel.createSequentialGroup().addGap(32)
 						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
@@ -253,140 +292,143 @@ public class Home {
 						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(dypan4, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
 								.addComponent(dypan1, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addComponent(dypan5, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(dypan6,
-												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addComponent(dypan2, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(dypan3, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGap(40)
+						.addGap(50)
 						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblSetThree, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblSetFour, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
-						.addGroup(gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_innerScrollPanel.createSequentialGroup()
-										.addComponent(dypan7, GroupLayout.PREFERRED_SIZE, 195,
+						.addGroup(
+								gl_innerScrollPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(dypan6, GroupLayout.PREFERRED_SIZE, 195,
 												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(dypan8,
-												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-								.addComponent(dypan9, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-						.addComponent(outerScrollPanel2, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
+										.addComponent(dypan3, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+						.addComponent(lblSetFive, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE).addGap(18)
+						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
+						.addGap(49)));
 		innerScrollPanel.setLayout(gl_innerScrollPanel);
 
 		// create the dataset...
 		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-		dataset1.addValue(1.5, "Overall Taste", "Jan");
-		dataset1.addValue(4.0, "Overall Taste", "Feb");
-		dataset1.addValue(3.0, "Overall Taste", "March");
-		dataset1.addValue(3.5, "Overall Taste", "AApril");
-		dataset1.addValue(5.0, "Overall Taste", "June");
-		
+		dataset1.addValue(3.5, "", "Taste");
+		dataset1.addValue(4.0, "", "Plating");
+		dataset1.addValue(3.0, "", "Portion");
+
 		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-		dataset2.addValue(1.5, "Overall Taste", "Jan");
-		dataset2.addValue(4.0, "Overall Taste", "Feb");
-		dataset2.addValue(3.0, "Overall Taste", "March");
-		dataset2.addValue(3.5, "Overall Taste", "AApril");
-		dataset2.addValue(5.0, "Overall Taste", "June");
+		dataset2.addValue(1.5, "", "Cleanliness");
+		dataset2.addValue(4.0, "", "Lighting");
+		dataset2.addValue(3.0, "", "Comfort");
 
 		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
-		dataset3.addValue(1.0, "Overall Taste", "Jan");
-		dataset3.addValue(2.0, "Overall Taste", "Feb");
-		dataset3.addValue(1.5, "Overall Taste", "March");
-		dataset3.addValue(3.5, "Overall Taste", "AApril");
-		dataset3.addValue(3.0, "Overall Taste", "June");
+		dataset3.addValue(1.0, "", "Serve Time");
+		dataset3.addValue(2.0, "", "Waiting Staff");
 
 		final DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
-		dataset4.addValue(4.5, "Overall Taste", "Jan");
-		dataset4.addValue(4.0, "Overall Taste", "Feb");
-		dataset4.addValue(3.5, "Overall Taste", "March");
-		dataset4.addValue(4.5, "Overall Taste", "AApril");
-		dataset4.addValue(5.0, "Overall Taste", "June");
+		dataset4.addValue(4.5, "", "Yes");
+		dataset4.addValue(4.0, "", "No");
+		dataset4.addValue(3.5, "", "Maybe");
+		
+//		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+//		dataset1.addValue(taste, "", "Taste");
+//		dataset1.addValue(plating, "", "Plating");
+//		dataset1.addValue(portion, "", "Portion");
+//		
+//		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
+//		dataset2.addValue(cleanliness, "", "Cleanliness");
+//		dataset2.addValue(lighting, "", "Lighting");
+//		dataset2.addValue(comfort, "", "Comfort");
+//		
+//		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
+//		dataset3.addValue(serveTime, "", "Serve Time");
+//		dataset3.addValue(waitingStaff, "", "Waiting Staff");
+//
+//		final DefaultCategoryDataset dataset4 = new DefaultCategoryDataset();
+//		dataset4.addValue(yes, "", "Yes");
+//		dataset4.addValue(no, "", "No");
+//		dataset4.addValue(maybe, "", "Maybe");
 
-		final DefaultCategoryDataset dataset5 = new DefaultCategoryDataset();
-		dataset5.addValue(4.0, "Overall Taste", "Jan");
-		dataset5.addValue(4.0, "Overall Taste", "Feb");
-		dataset5.addValue(3.0, "Overall Taste", "March");
-		dataset5.addValue(3.5, "Overall Taste", "AApril");
-		dataset5.addValue(2.5, "Overall Taste", "June");
+		
+		
+		
+		
+//		final DefaultCategoryDataset dataset5 = new DefaultCategoryDataset();
+//		dataset5.addValue(4.0, "Overall Taste", "Jan");
+//		dataset5.addValue(4.0, "Overall Taste", "Feb");
+//		dataset5.addValue(3.0, "Overall Taste", "March");
+//		dataset5.addValue(3.5, "Overall Taste", "AApril");
+//		dataset5.addValue(2.5, "Overall Taste", "June");
+//
+//		final DefaultCategoryDataset dataset6 = new DefaultCategoryDataset();
+//		dataset6.addValue(2.5, "Overall Taste", "Jan");
+//		dataset6.addValue(4.0, "Overall Taste", "Feb");
+//		dataset6.addValue(3.0, "Overall Taste", "March");
+//		dataset6.addValue(5.0, "Overall Taste", "AApril");
+//		dataset6.addValue(4.5, "Overall Taste", "June");
+//
+//		final DefaultCategoryDataset dataset7 = new DefaultCategoryDataset();
+//		dataset7.addValue(0.5, "Overall Taste", "Jan");
+//		dataset7.addValue(1.5, "Overall Taste", "Feb");
+//		dataset7.addValue(2.5, "Overall Taste", "March");
+//		dataset7.addValue(3.5, "Overall Taste", "AApril");
+//		dataset7.addValue(4.5, "Overall Taste", "June");
+//
+//		final DefaultCategoryDataset dataset8 = new DefaultCategoryDataset();
+//		dataset8.addValue(3.0, "Overall Taste", "Jan");
+//		dataset8.addValue(4.0, "Overall Taste", "Feb");
+//		dataset8.addValue(3.0, "Overall Taste", "March");
+//		dataset8.addValue(3.5, "Overall Taste", "AApril");
+//		dataset8.addValue(4.5, "Overall Taste", "June");
+//
+//		final DefaultCategoryDataset dataset9 = new DefaultCategoryDataset();
+//		dataset9.addValue(1.5, "Yes", "Jan");
+//		dataset9.addValue(2.5, "Yes", "Feb");
+//		dataset9.addValue(3.0, "Yes", "March");
+//		dataset9.addValue(3.5, "Yes", "April");
+//		dataset9.addValue(3.0, "Yes", "June");
+//		dataset9.addValue(2.5, "No", "Jan");
+//		dataset9.addValue(3.0, "No", "Feb");
+//		dataset9.addValue(4.5, "No", "March");
+//		dataset9.addValue(4.0, "No", "April");
+//		dataset9.addValue(1.5, "No", "June");
+//		dataset9.addValue(1.0, "Maybe", "Jan");
+//		dataset9.addValue(1.5, "Maybe", "Feb");
+//		dataset9.addValue(2.0, "Maybe", "March");
+//		dataset9.addValue(1.5, "Maybe", "April");
+//		dataset9.addValue(0.5, "Maybe", "June");
 
-		final DefaultCategoryDataset dataset6 = new DefaultCategoryDataset();
-		dataset6.addValue(2.5, "Overall Taste", "Jan");
-		dataset6.addValue(4.0, "Overall Taste", "Feb");
-		dataset6.addValue(3.0, "Overall Taste", "March");
-		dataset6.addValue(5.0, "Overall Taste", "AApril");
-		dataset6.addValue(4.5, "Overall Taste", "June");
-
-		final DefaultCategoryDataset dataset7 = new DefaultCategoryDataset();
-		dataset7.addValue(0.5, "Overall Taste", "Jan");
-		dataset7.addValue(1.5, "Overall Taste", "Feb");
-		dataset7.addValue(2.5, "Overall Taste", "March");
-		dataset7.addValue(3.5, "Overall Taste", "AApril");
-		dataset7.addValue(4.5, "Overall Taste", "June");
-
-		final DefaultCategoryDataset dataset8 = new DefaultCategoryDataset();
-		dataset8.addValue(3.0, "Overall Taste", "Jan");
-		dataset8.addValue(4.0, "Overall Taste", "Feb");
-		dataset8.addValue(3.0, "Overall Taste", "March");
-		dataset8.addValue(3.5, "Overall Taste", "AApril");
-		dataset8.addValue(4.5, "Overall Taste", "June");
-
-		final DefaultCategoryDataset dataset9 = new DefaultCategoryDataset();
-		dataset9.addValue(1.5, "Yes", "Jan");
-		dataset9.addValue(2.5, "Yes", "Feb");
-		dataset9.addValue(3.0, "Yes", "March");
-		dataset9.addValue(3.5, "Yes", "April");
-		dataset9.addValue(3.0, "Yes", "June");
-		dataset9.addValue(2.5, "No", "Jan");
-		dataset9.addValue(3.0, "No", "Feb");
-		dataset9.addValue(4.5, "No", "March");
-		dataset9.addValue(4.0, "No", "April");
-		dataset9.addValue(1.5, "No", "June");
-		dataset9.addValue(1.0, "Maybe", "Jan");
-		dataset9.addValue(1.5, "Maybe", "Feb");
-		dataset9.addValue(2.0, "Maybe", "March");
-		dataset9.addValue(1.5, "Maybe", "April");
-		dataset9.addValue(0.5, "Maybe", "June");
-
-
-		final JFreeChart chart1 = ChartFactory.createBarChart("Taste", "Month", "Rating", dataset1,PlotOrientation.VERTICAL, false, true, false);
+		final JFreeChart chart1 = ChartFactory.createBarChart("", "", "Rating", dataset1, PlotOrientation.VERTICAL,
+				false, true, false);
 		chart1.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart2 = ChartFactory.createBarChart("Plating", "Month", "Rating", dataset2,PlotOrientation.VERTICAL, false, true, false);
+
+		final JFreeChart chart2 = ChartFactory.createBarChart("", "", "Rating", dataset2, PlotOrientation.VERTICAL,
+				false, true, false);
 		chart2.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart3 = ChartFactory.createBarChart("Portion", "Month", "Rating", dataset3,PlotOrientation.VERTICAL, false, true, false);
+
+		final JFreeChart chart3 = ChartFactory.createBarChart("", "", "Rating", dataset3, PlotOrientation.VERTICAL,
+				false, true, false);
 		chart3.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart4 = ChartFactory.createBarChart("Cleanliness", "Month", "Rating", dataset4,PlotOrientation.VERTICAL, false, true, false);
+
+		final JFreeChart chart4 = ChartFactory.createBarChart("", "", "Rating", dataset4, PlotOrientation.VERTICAL,
+				false, true, false);
 		chart4.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart5 = ChartFactory.createBarChart("Lighting", "Month", "Rating", dataset5,PlotOrientation.VERTICAL, false, true, false);
-		chart5.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart6 = ChartFactory.createBarChart("Comfort", "Month", "Rating", dataset6,PlotOrientation.VERTICAL, false, true, false);
-		chart6.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart7 = ChartFactory.createBarChart("Serve Time", "Month", "Rating", dataset7,PlotOrientation.VERTICAL, false, true, false);
-		chart7.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart8 = ChartFactory.createBarChart("Waiting Staff", "Month", "Rating", dataset8,PlotOrientation.VERTICAL, false, true, false);
-		chart8.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		final JFreeChart chart9 = ChartFactory.createBarChart("Revisit Restaurant", "Month", "Response", dataset9,PlotOrientation.VERTICAL, false, true, false);
-		chart9.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
-		
-		
+
+//		final JFreeChart chart5 = ChartFactory.createBarChart("Lighting", "Month", "Rating", dataset5,PlotOrientation.VERTICAL, false, true, false);
+//		chart5.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
+//		
+//		final JFreeChart chart6 = ChartFactory.createBarChart("Comfort", "Month", "Rating", dataset6,PlotOrientation.VERTICAL, false, true, false);
+//		chart6.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
+//		
+//		final JFreeChart chart7 = ChartFactory.createBarChart("Serve Time", "Month", "Rating", dataset7,PlotOrientation.VERTICAL, false, true, false);
+//		chart7.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
+//		
+//		final JFreeChart chart8 = ChartFactory.createBarChart("Waiting Staff", "Month", "Rating", dataset8,PlotOrientation.VERTICAL, false, true, false);
+//		chart8.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
+//		
+//		final JFreeChart chart9 = ChartFactory.createBarChart("Revisit Restaurant", "Month", "Response", dataset9,PlotOrientation.VERTICAL, false, true, false);
+//		chart9.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
+//		
+
 //		chart.setBackgroundPaint(Color.white);
 //      get a reference to the plot for further customization...
 //		final CategoryPlot plot = chart.getCategoryPlot();
@@ -406,47 +448,21 @@ public class Home {
 		dypan1.add(cp1, BorderLayout.CENTER);
 		dypan1.validate();
 
-		dypan2.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp2 = new ChartPanel(chart2);
-		dypan2.add(cp2, BorderLayout.CENTER);
-		dypan2.validate();
-		
-		dypan3.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp3 = new ChartPanel(chart3);
-		dypan3.add(cp3, BorderLayout.CENTER);
-		dypan3.validate();
-		
 		dypan4.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp4 = new ChartPanel(chart4);
-		dypan4.add(cp4, BorderLayout.CENTER);
+		ChartPanel cp3 = new ChartPanel(chart2);
+		dypan4.add(cp3, BorderLayout.CENTER);
 		dypan4.validate();
-		
-		dypan5.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp5 = new ChartPanel(chart5);
-		dypan5.add(cp5, BorderLayout.CENTER);
-		dypan5.validate();
-		
+
+		dypan3.setLayout(new java.awt.BorderLayout());
+		ChartPanel cp4 = new ChartPanel(chart3);
+		dypan3.add(cp4, BorderLayout.CENTER);
+		dypan3.validate();
+
 		dypan6.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp6 = new ChartPanel(chart6);
+		ChartPanel cp6 = new ChartPanel(chart4);
 		dypan6.add(cp6, BorderLayout.CENTER);
 		dypan6.validate();
-		
-		dypan7.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp7 = new ChartPanel(chart7);
-		dypan7.add(cp7, BorderLayout.CENTER);
-		dypan7.validate();
-		
-		dypan8.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp8 = new ChartPanel(chart8);
-		dypan8.add(cp8, BorderLayout.CENTER);
-		dypan8.validate();
-		
-		dypan9.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp9 = new ChartPanel(chart9);
-		dypan9.add(cp9, BorderLayout.CENTER);
-		dypan9.validate();
-		
-		
+//		
 
 		mainPanel.setLayout(gl_mainPanel);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
