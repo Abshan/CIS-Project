@@ -20,6 +20,12 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	}
 
 	public Vector<String> questions() throws RemoteException {
+
+		/*
+		 * Referenced Material :
+		 * https://docs.oracle.com/javase/8/docs/api/java/util/Vector.html
+		 */
+
 		Vector<String> questions = new Vector<String>();
 		questions.add("How would you rate the following concerning the food dish?");
 		questions.add("Please rate the following regarding the service.");
@@ -31,6 +37,10 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	public boolean loginConfirmation(String username, String password) throws RemoteException {
 
+		/*
+		 * Admin Login Confirmation
+		 */
+
 		boolean stat = false;
 		if (username.equals("admin")) {
 			if (password.equals("admin")) {
@@ -41,6 +51,10 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	}
 
 	public boolean invoiceValidation(int number) throws RemoteException {
+
+		/*
+		 * Invoice number validation
+		 */
 
 		Connection con = connect.getConnection();
 		String que = "select orderNo from ordertab where orderNo = " + number + " ";
@@ -75,6 +89,12 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 		Connection con = connect.getConnection();
 
+		/*
+		 * Referenced Material : https://dev.mysql.com/doc/refman/8.0/en/json.html
+		 * 
+		 * Inserting values into MySQL database
+		 */
+
 		String que = "INSERT INTO reviewTab(message, opinion, date, review)VALUES('" + message + "', '" + opinion
 				+ "', '" + date + "', '{\"OrderNo\": " + orderno + ", \"Food\": {\"Taste\": " + taste
 				+ ", \"Plating\": " + plating + ", \"Portion\": " + portion + "}, \"Service\": {\"ServeTime\": "
@@ -85,7 +105,6 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 			Statement st;
 			st = (Statement) con.createStatement();
 			int exec = ((java.sql.Statement) st).executeUpdate(que);
-//			JOptionPane.showMessageDialog(null, "Thank You For Your Time, Have a Good Day!");
 			st.close();
 			con.close();
 
@@ -101,6 +120,13 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 		int sum = 0;
 		Connection con = connect.getConnection();
+
+		/*
+		 * Referenced Material : https://dev.mysql.com/doc/refman/8.0/en/json.html
+		 * 
+		 * Get the total number of review values from the database
+		 */
+
 		String que = "select SUM(review->>\"$." + name + "." + attribute + "\") Sum from reviewtab;";
 
 		try {
@@ -126,6 +152,13 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 		int sum = 0;
 		Connection con = connect.getConnection();
+
+		/*
+		 * Referenced Material : https://dev.mysql.com/doc/refman/8.0/en/json.html
+		 * 
+		 * Get average values of different user inputs
+		 */
+
 		String que = "select AVG(review->>\"$." + name + "." + attribute + "\") Avg from reviewtab;";
 
 		try {
@@ -148,6 +181,13 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	}
 
 	public Vector<String> getComments(int number) throws RemoteException {
+
+		/*
+		 * Referenced Material :
+		 * https://docs.oracle.com/javase/8/docs/api/java/util/Vector.html
+		 * 
+		 * Get limited number of user feedback comments from database
+		 */
 
 		Vector<String> comments = new Vector<String>();
 		Connection con = connect.getConnection();
@@ -176,6 +216,13 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	public int getValueOfFood(String attribute, String foodname) throws RemoteException {
 		Connection con = connect.getConnection();
 		int no = 0;
+
+		/*
+		 * Referenced Material : https://dev.mysql.com/doc/refman/8.0/en/json.html
+		 * 
+		 * Get the average values for overall individual food rating
+		 */
+
 		String que = "select AVG(review->>\"$.Food." + attribute
 				+ "\") Avg from reviewtab where review->>\"$.OrderNo\" in (select orderNo from orderlist where foodItem = '"
 				+ foodname + "')";
@@ -201,6 +248,10 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	public int getValueOfOpinion(String opinion) throws RemoteException {
 
+		/*
+		 * Get user opinions of future visitation
+		 */
+
 		int tot = 0;
 		Connection con = connect.getConnection();
 		String que = "select COUNT(opinion) op from reviewtab where opinion = '" + opinion + "'";
@@ -215,7 +266,6 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 			}
 
 			st.close();
-//			rs.close();
 			con.close();
 
 		} catch (Exception e) {

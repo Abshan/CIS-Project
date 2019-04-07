@@ -1,6 +1,9 @@
 package main.GUI;
 
-//
+/*
+ * Author : Kowshigan Senthilrajah
+ */
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -21,6 +24,7 @@ import javax.swing.border.TitledBorder;
 
 import main.Servers.review;
 import main.Servers.serverInterface;
+import javax.swing.ImageIcon;
 
 public class CustomerLoginGUI {
 
@@ -76,11 +80,12 @@ public class CustomerLoginGUI {
 		mainpanel.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblLogo = new JLabel("Logo");
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(CustomerLoginGUI.class.getResource("/main/icons/logoFinal.png")));
 		lblLogo.setBorder(new LineBorder(Color.LIGHT_GRAY, 3));
 		lblLogo.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogo.setBounds(200, 89, 116, 116);
+		lblLogo.setBounds(164, 47, 192, 205);
 		panel.add(lblLogo);
 
 		JLabel lblEnterReceiptNumber = new JLabel("*Enter Receipt Number");
@@ -95,6 +100,11 @@ public class CustomerLoginGUI {
 		txtpassword.setColumns(10);
 
 		JButton btnConfirm = new JButton("Confirm");
+
+		/*
+		 * Initialize confirm button for invoice number validation
+		 */
+
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -115,7 +125,7 @@ public class CustomerLoginGUI {
 							CustomerGUI window = new CustomerGUI();
 							window.frame.setVisible(true);
 							frame.dispose();
-						}else {
+						} else {
 							lblEnterReceiptNumber.setText("Enter a Valid Order Number");
 							txtpassword.setText("");
 						}
