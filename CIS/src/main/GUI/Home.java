@@ -1,62 +1,36 @@
 package main.GUI;
-
-//
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
+ 
+/*
+ *  Author : Illyas Nairoos
+ */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.rmi.Naming;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 
-import javax.swing.JTextArea;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
+import javax.swing.JTextArea;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.TitledBorder;
-
-import main.Servers.serverInterface;
-
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.RefineryUtilities;
 
-// comment
+import main.Servers.serverInterface;
+
 public class Home {
 
 	public JFrame frame;
@@ -65,6 +39,7 @@ public class Home {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,32 +53,34 @@ public class Home {
 		});
 	}
 
-	/**
+	/*
 	 * Create the application.
 	 */
+	
 	public Home() {
 		initialize();
 	}
 
-	/**
+	/*
 	 * Initialize the contents of the frame.
 	 */
-	/**
-	 * 
-	 */
+	
 	private void initialize() {
 
+		/*
+		 * Retrieving feedback questions from server 
+		 */
 		
-		String name = "rmi://localhost/test";                                                          //
-		String question1 = "";
+		String name = "rmi://localhost/test";                                                        
+		String question1 = "";																		
 		String question2 = "";
 		String question3 = "";
 		String question4 = "";
 		String question5 = "";
-		try {
-			serv = (serverInterface) Naming.lookup(name);
+		try {                                                                                         
+			serv = (serverInterface) Naming.lookup(name);                                            
 
-			Vector<String> que = new Vector<String>(serv.questions());
+			Vector<String> que = new Vector<String>(serv.questions());                               
 			question1 = que.get(0).toString();
 			question2 = que.get(1).toString();
 			question3 = que.get(2).toString();
@@ -112,12 +89,12 @@ public class Home {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		Date now = new Date();
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		String date = df.format(now);
-
-		int taste = 0;
+		
+		/*
+		 * Retrieving different user feedback from the database using relevant functions 
+		 */
+		
+		int taste = 0;                                                                               
 		int plating = 0;
 		int portion = 0;
 		int serveTime = 0;
@@ -128,14 +105,13 @@ public class Home {
 		int yes = 0;
 		int no = 0;
 		int maybe = 0;
-//		String message = "";
 		Vector<String> message = null;
 
 		try {
 			
-			serv = (serverInterface) Naming.lookup(name);
+			serv = (serverInterface) Naming.lookup(name);  
 			
-			taste = serv.getAvgValueOf("Food", "Taste");
+			taste = serv.getAvgValueOf("Food", "Taste");                                            
 			plating = serv.getAvgValueOf("Food", "Plating");
 			portion = serv.getAvgValueOf("Food", "Portion");
 			serveTime = serv.getAvgValueOf("Service", "ServeTime");
@@ -154,20 +130,24 @@ public class Home {
 			e.printStackTrace();
 		}
 		
+		/*
+		 * GUI 
+		 */
 		
-
-		frame = new JFrame();
+		frame = new JFrame();																		 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1280, 971);
 
-		JPanel mainPanel = new JPanel();
+		JPanel mainPanel = new JPanel();														 	
 		mainPanel.setLayout(null);
 
-		JPanel outerScrollPanel = new JPanel();
+		JPanel outerScrollPanel = new JPanel();														 
 		outerScrollPanel.setBackground(new Color(128, 128, 128));
 		outerScrollPanel.setLayout(null);
 
-		outerScrollPanel.setPreferredSize(new Dimension(491, 800));
+		outerScrollPanel.setPreferredSize(new Dimension(491, 800));									
+		
+		
 
 		GroupLayout gl_mainPanel = new GroupLayout(mainPanel);
 		gl_mainPanel.setHorizontalGroup(gl_mainPanel.createParallelGroup(Alignment.TRAILING)
@@ -178,18 +158,18 @@ public class Home {
 								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(151, Short.MAX_VALUE)));
 
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();                                                
 		scrollPane.setBounds(0, 0, 1264, 800);
 		outerScrollPanel.add(scrollPane);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		JPanel innerScrollPanel = new JPanel();
+		JPanel innerScrollPanel = new JPanel();													   
 		innerScrollPanel.setPreferredSize(new Dimension(290, 1000));
 		innerScrollPanel.setBackground(Color.WHITE);
 		scrollPane.setViewportView(innerScrollPanel);
 
-		JPanel dypan1 = new JPanel();
+		JPanel dypan1 = new JPanel();															   
 		dypan1.setBackground(Color.LIGHT_GRAY);
 		dypan1.setLayout(new BorderLayout());
 
@@ -203,7 +183,7 @@ public class Home {
 		JPanel dypan6 = new JPanel();
 		dypan6.setBackground(Color.LIGHT_GRAY);
 
-		JLabel lblSetOne = new JLabel();
+		JLabel lblSetOne = new JLabel();														  
 		lblSetOne.setText("\"" + question1 + "\"");
 		lblSetOne.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
@@ -223,20 +203,21 @@ public class Home {
 		lblSetFive.setText("\"" + question5 + "\"");
 		lblSetFive.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-		JScrollPane feedbackScrollPane = new JScrollPane();
+		JScrollPane feedbackScrollPane = new JScrollPane();                                     
 		feedbackScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		feedbackScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		JTextArea areaFeedback = new JTextArea();
+		JTextArea areaFeedback = new JTextArea();												
 		areaFeedback.setPreferredSize(new Dimension(1026, 1000));
 		feedbackScrollPane.setViewportView(areaFeedback);
 		areaFeedback.setEditable(false);
-		areaFeedback.setFont(new Font("Tahoma", Font.BOLD, 16));
+		areaFeedback.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		for (int i = 0; i <message.size(); i++) {
+		for (int i = 0; i <message.size(); i++) {											    
 			
 			areaFeedback.setText(areaFeedback.getText() + "\n \n " + message.get(i));
 		}
+		
 		
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
 		gl_innerScrollPanel
@@ -322,9 +303,12 @@ public class Home {
 						.addComponent(feedbackScrollPane, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
 						.addGap(49)));
 		innerScrollPanel.setLayout(gl_innerScrollPanel);
-
 		
-		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+		/*
+		*  Chart data set creation and setting up  
+		*/
+		
+		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();                            
 		dataset1.addValue(taste, "", "Taste");
 		dataset1.addValue(plating, "", "Plating");
 		dataset1.addValue(portion, "", "Portion");
@@ -342,8 +326,10 @@ public class Home {
 		dataset4.addValue(yes, "", "Yes");
 		dataset4.addValue(no, "", "No");
 		dataset4.addValue(maybe, "", "Maybe");
-
 		
+		/*
+		*  Chart creation and setting up  
+		*/
 
 		final JFreeChart chart1 = ChartFactory.createBarChart("", "", "Rating", dataset1, PlotOrientation.VERTICAL,
 				false, true, false);
@@ -361,7 +347,10 @@ public class Home {
 				false, true, false);
 		chart4.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
 
-
+		/*
+		*  Assigning charts to chartpanels and adding them to panels
+		*/
+		
 		dypan1.setLayout(new java.awt.BorderLayout());
 		ChartPanel cp1 = new ChartPanel(chart1);
 		dypan1.add(cp1, BorderLayout.CENTER);
@@ -381,7 +370,10 @@ public class Home {
 		ChartPanel cp6 = new ChartPanel(chart4);
 		dypan6.add(cp6, BorderLayout.CENTER);
 		dypan6.validate();
-//		
+		
+		/*
+		 * GUI
+		 */
 
 		mainPanel.setLayout(gl_mainPanel);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
