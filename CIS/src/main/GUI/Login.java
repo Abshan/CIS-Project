@@ -23,7 +23,7 @@ import javax.swing.ImageIcon;
 
 public class Login {
 
-	private JFrame frame;
+	public JFrame frame;
 	serverInterface serv;
 
 	/**
