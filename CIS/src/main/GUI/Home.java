@@ -16,6 +16,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -30,6 +31,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.HorizontalAlignment;
 
 import main.Servers.serverInterface;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Home {
 
@@ -137,8 +142,10 @@ public class Home {
 		frame = new JFrame();																		 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1280, 971);
+		frame.setLocationRelativeTo(null);
 
 		JPanel mainPanel = new JPanel();														 	
+		mainPanel.setBounds(0, 107, 1264, 951);
 		mainPanel.setLayout(null);
 
 		JPanel outerScrollPanel = new JPanel();														 
@@ -376,12 +383,35 @@ public class Home {
 		 */
 
 		mainPanel.setLayout(gl_mainPanel);
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(mainPanel,
-				GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(121).addComponent(mainPanel,
-						GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
-		frame.getContentPane().setLayout(groupLayout);
+		frame.getContentPane().setLayout(null);
+		
+		/*
+		 * Logout button
+		 */
+		
+		JButton btnLogout = new JButton("Logout ");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int conf = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Confirm logout",JOptionPane.YES_NO_OPTION);
+				if (conf == JOptionPane.YES_OPTION) {
+					Login window = new Login();
+					window.frame.setVisible(true);
+					frame.dispose();
+				    }
+			}
+		});
+		btnLogout.setBounds(1127, 36, 89, 23);
+		frame.getContentPane().add(btnLogout);
+		
+		/*
+		 * Cover image  
+		 */
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Home.class.getResource("/main/icons/homeCover.png")));
+		label.setBounds(0, 0, 1264, 107);
+		frame.getContentPane().add(label);
+		frame.getContentPane().add(mainPanel);
 	}
 }
