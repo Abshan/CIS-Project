@@ -55,6 +55,7 @@ public class Login {
 		frame.setBounds(0, 0, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1248, 658);

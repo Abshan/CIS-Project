@@ -27,6 +27,7 @@ import main.Servers.review;
 import main.Servers.serverInterface;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.Rectangle;
 
 public class CustomerGUI {
 
@@ -130,7 +131,7 @@ public class CustomerGUI {
 		}
 
 		frame = new JFrame();
-		frame.setSize(1080, 1810);// (100, 100, 1080, 1920);
+		frame.setBounds(100, 100, 1080, 1920);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
@@ -139,7 +140,7 @@ public class CustomerGUI {
 		mainpanel.setBackground(Color.GRAY);
 		mainpanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5),
 				"Restaurant Reviewing Sytem", TitledBorder.CENTER, TitledBorder.TOP));
-		mainpanel.setBounds(0, 0, 1048, 1722);
+		mainpanel.setBounds(0, 0, 1048, 1832);
 		frame.getContentPane().add(mainpanel);
 		mainpanel.setLayout(null);
 
@@ -329,7 +330,7 @@ public class CustomerGUI {
 		quepanel4.setBackground(Color.GRAY);
 		quepanel4.setLayout(null);
 		quepanel4.setBorder(BorderFactory.createTitledBorder("Dining Comments"));
-		quepanel4.setBounds(26, 1258, 996, 352);
+		quepanel4.setBounds(26, 1258, 996, 422);
 		mainpanel.add(quepanel4);
 
 		JLabel lblOtherComments = new JLabel();
@@ -339,17 +340,17 @@ public class CustomerGUI {
 		quepanel4.add(lblOtherComments);
 
 		JTextArea message_txt = new JTextArea();
-		message_txt.setBounds(59, 88, 878, 236);
+		message_txt.setBounds(59, 88, 878, 306);
 		quepanel4.add(message_txt);
 
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		btnConfirm.setBounds(796, 1638, 226, 63);
+		btnConfirm.setBounds(796, 1708, 226, 63);
 		mainpanel.add(btnConfirm);
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		btnCancel.setBounds(544, 1638, 226, 63);
+		btnCancel.setBounds(544, 1708, 226, 63);
 		mainpanel.add(btnCancel);
 
 		yes_chckbx.addActionListener(new ActionListener() {
