@@ -105,7 +105,7 @@ public class CustomerGUI implements ActionListener {
 	private String op = null;
 	private JTextArea textArea;
 	private JTextArea message_txt;
-	private String name = "rmi://192.168.43.123:1102/test";
+	private String name = review.name;
 
 	public void actionPerformed(ActionEvent e) {
 

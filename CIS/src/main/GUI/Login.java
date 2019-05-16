@@ -21,6 +21,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import main.Servers.review;
 import main.Servers.serverInterface;
 import java.awt.SystemColor;
 
@@ -57,7 +58,7 @@ public class Login {
 	 */
 	private void initialize() {
 
-		String name = "rmi://192.168.43.123:1102/test";
+		String name = review.name;
 
 		frame = new JFrame();
 		frame.setResizable(false);

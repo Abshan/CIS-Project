@@ -30,6 +30,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.HorizontalAlignment;
 
+import main.Servers.review;
 import main.Servers.serverInterface;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -81,7 +82,7 @@ public class Home {
 		 * Retrieving feedback questions from server
 		 */
 
-		String name = "rmi://192.168.43.123:1102/test";
+		String name = review.name;
 		String question1 = "";
 		String question2 = "";
 		String question3 = "";
