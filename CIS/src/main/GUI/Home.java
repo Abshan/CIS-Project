@@ -81,7 +81,7 @@ public class Home {
 		 * Retrieving feedback questions from server
 		 */
 
-		String name = "rmi://localhost/test";
+		String name = "rmi://192.168.43.123:1102/test";
 		String question1 = "";
 		String question2 = "";
 		String question3 = "";

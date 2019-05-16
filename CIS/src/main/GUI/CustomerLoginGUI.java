@@ -45,7 +45,7 @@ public class CustomerLoginGUI implements ActionListener {
 	private JButton button_backspace;
 	private JTextField invoiceNo;
 	serverInterface serv;
-	private String name = "rmi://localhost/test";
+	private String name = "rmi://192.168.43.123:1102/test";
 
 	public void actionPerformed(ActionEvent e) {
 
