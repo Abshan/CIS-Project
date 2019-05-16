@@ -100,6 +100,7 @@ public class CustomerGUI implements ActionListener {
 
 	public JFrame frame;
 	private JPanel blurpane;
+	private JPanel greetingPanel;
 	serverInterface serv;
 	private String op = null;
 	private JTextArea textArea;
@@ -153,15 +154,9 @@ public class CustomerGUI implements ActionListener {
 			maybe_chckbx.setSelected(false);
 			review.orderNo = 0;
 
-			try {
 				JOptionPane.showOptionDialog(null, "Thank You For Your Time, Have a Good Day!", " ",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[] {}, null);
-				TimeUnit.SECONDS.sleep(1);
-
-			} catch (InterruptedException ex) {
-
-				ex.printStackTrace();
-			}
+				
 
 			CustomerLoginGUI window = new CustomerLoginGUI();
 			window.frame.setVisible(true);
@@ -654,6 +649,21 @@ public class CustomerGUI implements ActionListener {
 				// Do nothing when clicked
 			}
 		});
+		
+		greetingPanel = new JPanel();
+		greetingPanel.setBackground(new Color(100, 149, 237));
+		greetingPanel.setBounds(204, 116, 493, 141);
+		panel_1.add(greetingPanel);
+		greetingPanel.setLayout(null);
+		greetingPanel.setVisible(false);
+		
+		JLabel lblNewLabel = new JLabel("Thank You For Your Time, \r\n");
+		lblNewLabel.setBounds(87, 28, 344, 47);
+		greetingPanel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Have a Good Day!");
+		lblNewLabel_1.setBounds(87, 69, 235, 47);
+		greetingPanel.add(lblNewLabel_1);
 
 		btnQ = new JButton("q");
 		btnQ.setBackground(SystemColor.menu);

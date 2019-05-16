@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import main.Servers.serverInterface;
+import java.awt.SystemColor;
 
 public class Login {
 
@@ -66,7 +67,8 @@ public class Login {
 		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1248, 685);
+		panel.setBackground(new Color(119, 136, 153));
+		panel.setBounds(0, 0, 1274, 658);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -93,7 +95,9 @@ public class Login {
 		panel.add(lblInvalid);
 
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(580, 408, 97, 41);
+		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 34));
+		btnLogin.setBackground(SystemColor.activeCaption);
+		btnLogin.setBounds(583, 405, 122, 54);
 		panel.add(btnLogin);
 
 		/*
