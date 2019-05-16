@@ -35,8 +35,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Home {
 
@@ -181,19 +179,8 @@ public class Home {
 		innerScrollPanel.setBackground(Color.WHITE);
 		scrollPane.setViewportView(innerScrollPanel);
 
-//		JPanel hovPan1 = new JPanel();
-//		hovPan1.setSize(1032, 516);
-
-		testWindow window = new testWindow();
 
 		JPanel dypan1 = new JPanel();
-		/*
-		 * dypan1.addMouseListener(new MouseAdapter() {
-		 * 
-		 * @Override public void mouseEntered(MouseEvent e) {
-		 * 
-		 * window.frame.setVisible(true); }});
-		 */
 		dypan1.setBackground(Color.LIGHT_GRAY);
 		dypan1.setLayout(new BorderLayout());
 
@@ -379,49 +366,21 @@ public class Home {
 
 		dypan1.setLayout(new java.awt.BorderLayout());
 		cp1 = new ChartPanel(chart1);
-		cp1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				window.frame.setVisible(true);
-//				chartFlag = 1;
-			}
-		});
 		dypan1.add(cp1, BorderLayout.CENTER);
 		dypan1.validate();
 
 		dypan4.setLayout(new java.awt.BorderLayout());
 		cp3 = new ChartPanel(chart2);
-		cp3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				window.frame.setVisible(true);
-				chartFlag = 2;
-			}
-		});
 		dypan4.add(cp3, BorderLayout.CENTER);
 		dypan4.validate();
 
 		dypan3.setLayout(new java.awt.BorderLayout());
 		cp4 = new ChartPanel(chart3);
-		cp4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				window.frame.setVisible(true);
-				chartFlag = 3;
-			}
-		});
 		dypan3.add(cp4, BorderLayout.CENTER);
 		dypan3.validate();
 
 		dypan6.setLayout(new java.awt.BorderLayout());
 		cp6 = new ChartPanel(chart4);
-		cp6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				window.frame.setVisible(true);
-				chartFlag = 4;
-			}
-		});
 		dypan6.add(cp6, BorderLayout.CENTER);
 		dypan6.validate();
 
