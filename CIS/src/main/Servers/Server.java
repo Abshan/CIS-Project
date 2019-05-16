@@ -10,7 +10,7 @@ public class Server {
 	public static void main(String[] argv) {
 		try {
 
-			Naming.rebind("rmi://localhost/test", new functions());
+			Naming.rebind("rmi://192.168.43.123/test", new functions());
 
 			System.out.println("Server is ready");
 
