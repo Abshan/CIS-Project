@@ -6,6 +6,6 @@ package main.Servers;
 public class review {
 
 	public static int orderNo;
-	public static String name = "rmi://192.168.43.123:8090/test";
+	public static String name = "rmi://192.168.43.123:8060/test";
 
 }

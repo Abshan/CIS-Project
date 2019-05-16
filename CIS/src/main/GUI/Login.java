@@ -58,7 +58,7 @@ public class Login {
 	 */
 	private void initialize() {
 
-		String name = "rmi://192.168.43.123:8090/test";
+		String name = "rmi://192.168.43.123:8060/test";
 
 		frame = new JFrame();
 		frame.setResizable(false);
