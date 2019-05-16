@@ -11,8 +11,8 @@ public class Server {
 	public static void main(String[] argv) {
 		try {
 			
-			LocateRegistry.createRegistry(8050);
-			Naming.rebind("rmi://192.168.43.123:8050/test", new functions());
+			LocateRegistry.createRegistry(8030);
+			Naming.rebind("rmi://192.168.43.123:8030/test", new functions());
 
 			System.out.println("Server is ready");
 

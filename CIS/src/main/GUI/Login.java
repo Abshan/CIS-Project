@@ -58,7 +58,7 @@ public class Login {
 	 */
 	private void initialize() {
 
-		String name = "rmi://192.168.43.123:8050/test";
+		String name = review.name;
 
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -69,7 +69,7 @@ public class Login {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(119, 136, 153));
-		panel.setBounds(0, 0, 1274, 658);
+		panel.setBounds(0, 0, 1274, 685);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
