@@ -1,5 +1,5 @@
 package main.GUI;
- 
+
 /*
  *  Author : Illyas Nairoos
  */
@@ -35,16 +35,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Home {
 
 	public JFrame frame;
+	public int chartFlag =0;
 	serverInterface serv;
+	public ChartPanel cp1;
+	public ChartPanel cp3;
+	public ChartPanel cp4;
+	public ChartPanel cp6;
 
 	/**
 	 * Launch the application.
 	 */
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,7 +68,7 @@ public class Home {
 	/*
 	 * Create the application.
 	 */
-	
+
 	public Home() {
 		initialize();
 	}
@@ -69,23 +76,23 @@ public class Home {
 	/*
 	 * Initialize the contents of the frame.
 	 */
-	
+
 	private void initialize() {
 
 		/*
-		 * Retrieving feedback questions from server 
+		 * Retrieving feedback questions from server
 		 */
-		
-		String name = "rmi://localhost/test";                                                        
-		String question1 = "";																		
+
+		String name = "rmi://localhost/test";
+		String question1 = "";
 		String question2 = "";
 		String question3 = "";
 		String question4 = "";
 		String question5 = "";
-		try {                                                                                         
-			serv = (serverInterface) Naming.lookup(name);                                            
+		try {
+			serv = (serverInterface) Naming.lookup(name);
 
-			Vector<String> que = new Vector<String>(serv.questions());                               
+			Vector<String> que = new Vector<String>(serv.questions());
 			question1 = que.get(0).toString();
 			question2 = que.get(1).toString();
 			question3 = que.get(2).toString();
@@ -94,12 +101,12 @@ public class Home {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		/*
-		 * Retrieving different user feedback from the database using relevant functions 
+		 * Retrieving different user feedback from the database using relevant functions
 		 */
-		
-		int taste = 0;                                                                               
+
+		int taste = 0;
 		int plating = 0;
 		int portion = 0;
 		int serveTime = 0;
@@ -113,10 +120,10 @@ public class Home {
 		Vector<String> message = null;
 
 		try {
-			
-			serv = (serverInterface) Naming.lookup(name);  
-			
-			taste = serv.getAvgValueOf("Food", "Taste");                                            
+
+			serv = (serverInterface) Naming.lookup(name);
+
+			taste = serv.getAvgValueOf("Food", "Taste");
 			plating = serv.getAvgValueOf("Food", "Plating");
 			portion = serv.getAvgValueOf("Food", "Portion");
 			serveTime = serv.getAvgValueOf("Service", "ServeTime");
@@ -124,37 +131,35 @@ public class Home {
 			cleanliness = serv.getAvgValueOf("Ambiance", "Cleanliness");
 			lighting = serv.getAvgValueOf("Ambiance", "Lighting");
 			comfort = serv.getAvgValueOf("Ambiance", "Comfort");
-			
+
 			yes = serv.getValueOfOpinion("Yes");
 			no = serv.getValueOfOpinion("No");
 			maybe = serv.getValueOfOpinion("Maybe");
-			
+
 			message = new Vector<String>(serv.getComments(20));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		/*
-		 * GUI 
+		 * GUI
 		 */
-		
-		frame = new JFrame();																		 
+
+		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1280, 971);
 		frame.setLocationRelativeTo(null);
 
-		JPanel mainPanel = new JPanel();														 	
+		JPanel mainPanel = new JPanel();
 		mainPanel.setBounds(0, 107, 1264, 951);
 		mainPanel.setLayout(null);
 
-		JPanel outerScrollPanel = new JPanel();														 
+		JPanel outerScrollPanel = new JPanel();
 		outerScrollPanel.setBackground(new Color(128, 128, 128));
 		outerScrollPanel.setLayout(null);
 
-		outerScrollPanel.setPreferredSize(new Dimension(491, 800));									
-		
-		
+		outerScrollPanel.setPreferredSize(new Dimension(491, 800));
 
 		GroupLayout gl_mainPanel = new GroupLayout(mainPanel);
 		gl_mainPanel.setHorizontalGroup(gl_mainPanel.createParallelGroup(Alignment.TRAILING)
@@ -165,18 +170,30 @@ public class Home {
 								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(151, Short.MAX_VALUE)));
 
-		JScrollPane scrollPane = new JScrollPane();                                                
+		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 1264, 800);
 		outerScrollPanel.add(scrollPane);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		JPanel innerScrollPanel = new JPanel();													   
+		JPanel innerScrollPanel = new JPanel();
 		innerScrollPanel.setPreferredSize(new Dimension(290, 1000));
 		innerScrollPanel.setBackground(Color.WHITE);
 		scrollPane.setViewportView(innerScrollPanel);
 
-		JPanel dypan1 = new JPanel();															   
+//		JPanel hovPan1 = new JPanel();
+//		hovPan1.setSize(1032, 516);
+
+		testWindow window = new testWindow();
+
+		JPanel dypan1 = new JPanel();
+		/*
+		 * dypan1.addMouseListener(new MouseAdapter() {
+		 * 
+		 * @Override public void mouseEntered(MouseEvent e) {
+		 * 
+		 * window.frame.setVisible(true); }});
+		 */
 		dypan1.setBackground(Color.LIGHT_GRAY);
 		dypan1.setLayout(new BorderLayout());
 
@@ -190,7 +207,7 @@ public class Home {
 		JPanel dypan6 = new JPanel();
 		dypan6.setBackground(Color.LIGHT_GRAY);
 
-		JLabel lblSetOne = new JLabel();														  
+		JLabel lblSetOne = new JLabel();
 		lblSetOne.setText("\"" + question1 + "\"");
 		lblSetOne.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
@@ -210,22 +227,21 @@ public class Home {
 		lblSetFive.setText("\"" + question5 + "\"");
 		lblSetFive.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-		JScrollPane feedbackScrollPane = new JScrollPane();                                     
+		JScrollPane feedbackScrollPane = new JScrollPane();
 		feedbackScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		feedbackScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		
-		JTextArea areaFeedback = new JTextArea();												
+
+		JTextArea areaFeedback = new JTextArea();
 		areaFeedback.setPreferredSize(new Dimension(1026, 1000));
 		feedbackScrollPane.setViewportView(areaFeedback);
 		areaFeedback.setEditable(false);
 		areaFeedback.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		for (int i = 0; i <message.size(); i++) {											    
-			
+		for (int i = 0; i < message.size(); i++) {
+
 			areaFeedback.setText(areaFeedback.getText() + "\n \n " + message.get(i));
 		}
-		
-		
+
 		GroupLayout gl_innerScrollPanel = new GroupLayout(innerScrollPanel);
 		gl_innerScrollPanel
 				.setHorizontalGroup(gl_innerScrollPanel.createParallelGroup(Alignment.TRAILING)
@@ -310,21 +326,23 @@ public class Home {
 						.addComponent(feedbackScrollPane, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
 						.addGap(49)));
 		innerScrollPanel.setLayout(gl_innerScrollPanel);
-		
+
 		/*
-		*  Chart data set creation and setting up  
-		*/
+		 * Chart data set creation and setting up
+		 */
+
 		
-		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();                            
+
+		final DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
 		dataset1.addValue(taste, "", "Taste");
 		dataset1.addValue(plating, "", "Plating");
 		dataset1.addValue(portion, "", "Portion");
-		
+
 		final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
 		dataset2.addValue(cleanliness, "", "Cleanliness");
 		dataset2.addValue(lighting, "", "Lighting");
 		dataset2.addValue(comfort, "", "Comfort");
-		
+
 		final DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
 		dataset3.addValue(serveTime, "", "Serve Time");
 		dataset3.addValue(waitingStaff, "", "Waiting Staff");
@@ -333,10 +351,10 @@ public class Home {
 		dataset4.addValue(yes, "", "Yes");
 		dataset4.addValue(no, "", "No");
 		dataset4.addValue(maybe, "", "Maybe");
-		
+
 		/*
-		*  Chart creation and setting up  
-		*/
+		 * Chart creation and setting up
+		 */
 
 		final JFreeChart chart1 = ChartFactory.createBarChart("", "", "Rating", dataset1, PlotOrientation.VERTICAL,
 				false, true, false);
@@ -355,59 +373,89 @@ public class Home {
 		chart4.getTitle().setHorizontalAlignment(HorizontalAlignment.LEFT);
 
 		/*
-		*  Assigning charts to chartpanels and adding them to panels
-		*/
+		 * Assigning charts to chartpanels and adding them to panels
+		 */
 		
+
 		dypan1.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp1 = new ChartPanel(chart1);
+		cp1 = new ChartPanel(chart1);
+		cp1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				window.frame.setVisible(true);
+//				chartFlag = 1;
+			}
+		});
 		dypan1.add(cp1, BorderLayout.CENTER);
 		dypan1.validate();
 
 		dypan4.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp3 = new ChartPanel(chart2);
+		cp3 = new ChartPanel(chart2);
+		cp3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				window.frame.setVisible(true);
+				chartFlag = 2;
+			}
+		});
 		dypan4.add(cp3, BorderLayout.CENTER);
 		dypan4.validate();
 
 		dypan3.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp4 = new ChartPanel(chart3);
+		cp4 = new ChartPanel(chart3);
+		cp4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				window.frame.setVisible(true);
+				chartFlag = 3;
+			}
+		});
 		dypan3.add(cp4, BorderLayout.CENTER);
 		dypan3.validate();
 
 		dypan6.setLayout(new java.awt.BorderLayout());
-		ChartPanel cp6 = new ChartPanel(chart4);
+		cp6 = new ChartPanel(chart4);
+		cp6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				window.frame.setVisible(true);
+				chartFlag = 4;
+			}
+		});
 		dypan6.add(cp6, BorderLayout.CENTER);
 		dypan6.validate();
-		
+
 		/*
 		 * GUI
 		 */
 
 		mainPanel.setLayout(gl_mainPanel);
 		frame.getContentPane().setLayout(null);
-		
+
 		/*
 		 * Logout button
 		 */
-		
+
 		JButton btnLogout = new JButton("Logout ");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				int conf = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Confirm logout",JOptionPane.YES_NO_OPTION);
+
+				int conf = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Confirm logout",
+						JOptionPane.YES_NO_OPTION);
 				if (conf == JOptionPane.YES_OPTION) {
 					Login window = new Login();
 					window.frame.setVisible(true);
 					frame.dispose();
-				    }
+				}
 			}
 		});
 		btnLogout.setBounds(1127, 36, 89, 23);
 		frame.getContentPane().add(btnLogout);
-		
+
 		/*
-		 * Cover image  
+		 * Cover image
 		 */
-		
+
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Home.class.getResource("/main/icons/homeCover.png")));
 		label.setBounds(0, 0, 1264, 107);
