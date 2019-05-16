@@ -22,14 +22,14 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 	public Vector<String> questions() throws RemoteException {
 
 		/*
-		 * Referenced Material :
-		 * https://docs.oracle.com/javase/8/docs/api/java/util/Vector.html
+		 * Referenced Material :https://docs.oracle.com/javase/8/docs/api/java/util/Vector.html
+		 * 
 		 */
 
 		Vector<String> questions = new Vector<String>();
 		questions.add("How would you rate the following concerning the food dish?");
 		questions.add("Please rate the following regarding the service.");
-		questions.add("Please rate the following regarding the ambiance of our restaurant");
+		questions.add("Please rate the following regarding the ambiance.");
 		questions.add("Would you revisit our restaurant in the future?");
 		questions.add("Comments & recomendations.");
 		return questions;
