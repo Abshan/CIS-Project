@@ -1,13 +1,17 @@
 package main.Servers;
 
-/*
- * Author : Mohamed Abshan
- */
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * @author Mohamed Abshan
+ *
+ */
 public class DBConnect {
+	/** MySql Database connection code
+	 * @return : Connection or null
+	 */
 	public Connection getConnection() {
 		
 		/*

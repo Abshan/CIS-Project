@@ -9,6 +9,12 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+/**
+ * @author Mohamed Abshan
+ * @author Illyas Nairoos
+ * @author kowshigan Senthilrajah
+ *
+ */
 public class functions extends UnicastRemoteObject implements serverInterface {
 
 	private static final long serialVersionUID = 1L;
@@ -83,6 +89,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	}
 
+	@SuppressWarnings("unused")
 	public void userInput(int orderno, int taste, int plating, int portion, int servetime, int waitingstaff,
 			int cleanliness, int lighting, int comfort, String opinion, String message, String date)
 			throws RemoteException {
@@ -116,37 +123,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 
 	}
 
-	public int getValueOf(String name, String attribute) throws RemoteException {
-
-		int sum = 0;
-		Connection con = connect.getConnection();
-
-		/*
-		 * Referenced Material : https://dev.mysql.com/doc/refman/8.0/en/json.html
-		 * 
-		 * Get the total number of review values from the database
-		 */
-
-		String que = "select SUM(review->>\"$." + name + "." + attribute + "\") Sum from reviewtab;";
-
-		try {
-			Statement st;
-			st = (Statement) con.createStatement();
-			ResultSet rs = st.executeQuery(que);
-
-			if (rs.next()) {
-				sum = rs.getInt("Sum");
-			}
-
-			st.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sum;
-
-	}
+	
 
 	public int getAvgValueOf(String name, String attribute) throws RemoteException {
 
@@ -213,38 +190,7 @@ public class functions extends UnicastRemoteObject implements serverInterface {
 		return comments;
 	}
 
-	public int getValueOfFood(String attribute, String foodname) throws RemoteException {
-		Connection con = connect.getConnection();
-		int no = 0;
-
-		/*
-		 * Referenced Material : https://dev.mysql.com/doc/refman/8.0/en/json.html
-		 * 
-		 * Get the average values for overall individual food rating
-		 */
-
-		String que = "select AVG(review->>\"$.Food." + attribute
-				+ "\") Avg from reviewtab where review->>\"$.OrderNo\" in (select orderNo from orderlist where foodItem = '"
-				+ foodname + "')";
-
-		try {
-			Statement st;
-			st = (Statement) con.createStatement();
-			ResultSet rs = st.executeQuery(que);
-
-			if (rs.next()) {
-				no = rs.getInt("Avg");
-			}
-
-			st.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return no;
-
-	}
+	
 
 	public int getValueOfOpinion(String opinion) throws RemoteException {
 
