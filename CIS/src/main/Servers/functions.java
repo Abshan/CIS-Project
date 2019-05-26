@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author Mohamed Abshan
  * @author Illyas Nairoos
  * @author kowshigan Senthilrajah
+ * IMPLEMENTATION OF THE REMOTE SERVICE
  *
  */
 public class functions extends UnicastRemoteObject implements serverInterface {

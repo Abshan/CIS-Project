@@ -5,6 +5,7 @@ import java.util.Vector;
 
 /**
  * @author Mohamed Abshan
+ * DEFINITION OF THE REMOTE SERVICE
  *
  */
 public interface serverInterface extends Remote {

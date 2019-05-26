@@ -9,7 +9,13 @@ import java.rmi.registry.LocateRegistry;
  *
  */
 public class Server {
+	@SuppressWarnings("deprecation")
 	public static void main(String[] argv) {
+		
+		if(System.getSecurityManager() == null) {
+	         System.setSecurityManager(new RMISecurityManager());
+	      }
+		
 		try {
 			
 			LocateRegistry.createRegistry(1099);
